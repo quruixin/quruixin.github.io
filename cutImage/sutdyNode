@@ -1,0 +1,131 @@
+addEventListener
+	addEventListener() 方法用于向指定元素添加事件句柄。
+	使用 removeEventListener() 方法来移除 addEventListener() 方法添加的事件句柄。
+	Internet Explorer 8 及更早IE版本不支持 addEventListener() 方法，，Opera 7.0 及 Opera 更早版本也不支持。 但是可以使用 attachEvent() 方法来添加事件句柄。
+	element.addEventListener(event, function, useCapture)
+		event(字符串，指定事件名。不要使用 "on" 前缀。 例如，使用 "click" ,而不是使用 "onclick"。)
+		useCapture(布尔值，指定事件是否在捕获或冒泡阶段执行。true - 事件句柄在捕获阶段执行。false- 默认。事件句柄在冒泡阶段执行)
+		eg: document.getElementById("myBtn").addEventListener("click", myFunction);
+		    document.getElementById("myBtn").addEventListener("click", someOtherFunction);
+		    document.getElementById("myBtn").addEventListener("click", function() {myFunction(p1, p2);});
+			var x = document.getElementById("myBtn");
+			if (x.addEventListener) {                    //所有主流浏览器，除了 IE 8 及更早 IE版本
+			    x.addEventListener("click", myFunction);
+			} else if (x.attachEvent) {                  // IE 8 及更早 IE 版本
+			    x.attachEvent("onclick", myFunction);
+			}
+Canvas
+	<canvas id="myCanvas" width="200" height="100">Your browser does not support the canvas element.</canvas>
+		height:设置 canvas 的高度。
+		width:设置 canvas 的宽度。
+		getContext() 方法返回一个用于在画布上绘图的环境。
+	<script type="text/javascript">//矩形
+		var c=document.getElementById("myCanvas");//使用 id 来寻找 canvas 元素
+		var cxt=c.getContext("2d");//创建 context 对象
+		cxt.fillStyle="#FF0000";//fillStyle 方法将其染成红色
+		cxt.fillRect(0,0,150,75);//fillRect 方法规定了形状、位置和尺。在画布上绘制 150x75 的矩形，从左上角开始 (0,0)
+	</script>
+	<script type="text/javascript">//绘制一条线
+		var c=document.getElementById("myCanvas");
+		var cxt=c.getContext("2d");
+		cxt.moveTo(10,10);
+		cxt.lineTo(150,50);
+		cxt.lineTo(10,50);
+		cxt.stroke();
+	</script>		
+	<script type="text/javascript">//绘制圆形
+		var c=document.getElementById("myCanvas");
+		var cxt=c.getContext("2d");
+		cxt.fillStyle="#FF0000";
+		cxt.beginPath();
+		cxt.arc(70,18,15,0,Math.PI*2,true);
+		cxt.closePath();
+		cxt.fill();
+	</script>	
+	<script type="text/javascript">//绘制渐变
+		var c=document.getElementById("myCanvas");
+		var cxt=c.getContext("2d");
+		var grd=cxt.createLinearGradient(0,0,175,50);
+		grd.addColorStop(0,"#FF0000");
+		grd.addColorStop(1,"#00FF00");
+		cxt.fillStyle=grd;
+		cxt.fillRect(0,0,175,50);
+	</script>
+	<script type="text/javascript">//绘制图像
+		var c=document.getElementById("myCanvas");
+		var cxt=c.getContext("2d");
+		var img=new Image()
+		img.src="/i/eg_flower.png"
+		cxt.drawImage(img,0,0);
+	</script>
+drawImage
+	context.drawImage(img,x,y);//在画布上定位图像：
+	context.drawImage(img,x,y,width,height);//在画布上定位图像，并规定图像的宽度和高度：	
+	context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);//剪切图像，并在画布上定位被剪切的部分：
+	img	    规定要使用的图像、画布或视频。
+	sx	    可选。开始剪切的 x 坐标位置。
+	sy	    可选。开始剪切的 y 坐标位置。
+	swidth	可选。被剪切图像的宽度。
+	sheight	可选。被剪切图像的高度。
+	x	    在画布上放置图像的 x 坐标位置。
+	y	    在画布上放置图像的 y 坐标位置。
+	width	可选。要使用的图像的宽度。（伸展或缩小图像）
+	height	可选。要使用的图像的高度。（伸展或缩小图像）
+Image
+	Image 对象的属性
+		align	    设置或返回与内联内容的对齐方式。
+		alt	        设置或返回无法显示图像时的替代文本。
+		border	    设置或返回图像周围的边框。
+		complete    返回浏览器是否已完成对图像的加载。
+		height	    设置或返回图像的高度。
+		hspace	    设置或返回图像左侧和右侧的空白。
+		id	        设置或返回图像的 id。
+		isMap	    返回图像是否是服务器端的图像映射。
+		longDesc    设置或返回指向包含图像描述的文档的 URL。
+		lowsrc	    设置或返回指向图像的低分辨率版本的 URL。
+		name	    设置或返回图像的名称。
+		src	        设置或返回图像的 URL。
+		useMap	    设置或返回客户端图像映射的 usemap 属性的值。
+		vspace	    设置或返回图像的顶部和底部的空白。
+		width	    设置或返回图像的宽度。
+	标准属性
+		className	设置或返回元素的 class 属性。
+		title	    设置或返回元素的 title。
+	Image 对象的事件句柄
+		onabort	    当用户放弃图像的装载时调用的事件句柄。
+		onerror	    在装载图像的过程中发生错误时调用的事件句柄。
+		onload	    当图像装载完毕时调用的事件句柄。
+toDataURL()
+	这个方法能把画布里的图案转变成base64编码格式的png，然后返回 Data URL数据。
+	var strDataURI = oCanvas.toDataURL();// returns "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACt..."
+	而且，如果你给toDataURL()传入mine类型的参数，你还可以将画布转变成其它格式的图片。
+	var strDataURI = oCanvas.toDataURL("image/jpeg");// returns "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAA..."
+	将裁剪后的canvas图案保存成base64编码的数据，将这些数据传给后端即可。
+FileReader
+	HTML5定义了FileReader作为文件API的重要成员用于读取文件
+	1.检测浏览器对FileReader的支持
+		if(window.FileReader) {  
+			var fr = new FileReader();}  
+		else {  
+		    alert("Not supported by your browser!");  
+		}
+	2. 调用FileReader对象的方法。FileReader 的实例拥有 4 个方法，其中 3 个用以读取文件，另一个用来中断读取。
+		方法名	              参数	            描述
+		abort		          none              中断读取 
+		readAsBinaryString	  file	            将文件读取为二进制码
+		readAsDataURL	      file	            将文件读取为 DataURL
+		readAsText	          file, [encoding]	将文件读取为文本
+	3. 处理事件
+		onabort 中断时触发
+		onerror 出错时触发
+		onload 文件读取成功完成时触发
+		onloadend 读取完成触发，无论成功或失败
+		onloadstart 读取开始时触发
+		onprogress 读取中
+
+
+
+
+
+
+
