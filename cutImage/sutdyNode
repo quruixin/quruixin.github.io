@@ -116,13 +116,18 @@ FileReader
 		readAsDataURL	      file	            将文件读取为 DataURL
 		readAsText	          file, [encoding]	将文件读取为文本
 	3. 处理事件
-		onabort 中断时触发
-		onerror 出错时触发
-		onload 文件读取成功完成时触发
-		onloadend 读取完成触发，无论成功或失败
-		onloadstart 读取开始时触发
-		onprogress 读取中
-
+		onabort      中断时触发
+		onerror      出错时触发
+		onload       文件读取成功完成时触发
+		onloadend    读取完成触发，无论成功或失败
+		onloadstart  读取开始时触发
+		onprogress   读取中
+HTML5 canvas clearRect() 方法
+	在给定矩形内清空一个矩形：context.clearRect(x,y,width,height);
+	x	    要清除的矩形左上角的 x 坐标
+	y	    要清除的矩形左上角的 y 坐标
+	width	要清除的矩形的宽度，以像素计
+	height	要清除的矩形的高度，以像素计
 
 
 

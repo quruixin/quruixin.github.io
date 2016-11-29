@@ -34,8 +34,8 @@
             display:inline-block;
         }
         #show_pic{
-            height:100px;
-            width:100px;
+            height:150px;
+            width:150px;
             border:2px solid #000;
             overflow:hidden;
             margin:0 auto;
@@ -78,7 +78,6 @@
                 var ctx = t.editPic.getContext('2d');
                 var images = new Image();
                 images.src = t.imgUrl;
-
                 images.onload = function(){
                     ctx.drawImage(images,t.sx, t.sy, t.sHeight, t.sWidth, 0, 0, t.sHeight, t.sWidth);
                     document.getElementById('show_pic').getElementsByTagName('img')[0].src = t.editPic.toDataURL();
