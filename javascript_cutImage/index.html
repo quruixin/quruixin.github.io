@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>javascript图片剪切</title>
+    <script src="jquery-1.8.1.min.js"></script>
+    <script src="jquery-ui-1.10.4.custom.min.js"></script>
+    <style>
+        body{
+            background:#333;
+        }
+        #box{
+            position:absolute;
+            left:200px;
+            top:100px;
+            width:460px;
+            height:360px;
+        }
+        #img1{
+            opacity:0.7;
+            position:absolute;
+            top:0;
+            left:0;
+        }
+        #img2{
+            position:absolute;
+            top:0;
+            left:0;
+            clip:rect(0,200px,200px,0);/*clip:rect(top,right,bottom,left);*/
+        }
+        #main{
+            border:1px solid #fff;
+            width:200px;
+            height:200px;
+            position:absolute;
+            top:0;
+            left:0;
+        }
+        .minDiv{
+            position:absolute;
+            width:8px;
+            height:8px;
+            background:#fff;
+        }
+        .left-up{
+            top:-4px;
+            left:-4px;
+            cursor:nw-resize;
+        }
+        .up{
+            left:50%;
+            top:-4px;
+            margin-left:-4px;
+            cursor:n-resize;
+        }
+        .right-up{
+            top:-4px;
+            right:-4px;
+            cursor:ne-resize;
+        }
+        .right{
+            right:-4px;
+            top:50%;
+            margin-top:-4px;
+            cursor:e-resize;
+        }
+        .right-down{
+            right:-4px;
+            bottom:-4px;
+            cursor:se-resize;
+        }
+        .down{
+            bottom:-4px;
+            left:50%;
+            margin-left:-4px;
+            cursor:s-resize;
+        }
+        .left-down{
+            left:-4px;
+            bottom:-4px;
+            cursor:sw-resize;
+        }
+        .left{
+            left:-4px;
+            top:50%;
+            margin-top:-4px;
+            cursor:w-resize;
+        }
+        #preview{
+            position:absolute;
+            width:460px;
+            height:360px;
+            top:100px;
+            left:670px;
+        }
+        #preview img{
+            position:absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <img src="1.jpg" id='img1' alt="">
+    <img src="1.jpg" id='img2' alt="">
+    <div id="main">
+        <div id='left-up' class="minDiv left-up"></div>
+        <div id='up' class="minDiv up"></div>
+        <div id='right-up' class="minDiv right-up"></div>
+        <div id='right' class="minDiv right"></div>
+        <div id='right-down' class="minDiv right-down"></div>
+        <div id='down' class="minDiv down"></div>
+        <div id='left-down' class="minDiv left-down"></div>
+        <div id='left' class="minDiv left"></div>
+    </div>
+
+</div>
+<div id="preview">
+    <img id='img3' src="1.jpg" alt="">
+</div>
+<script>
+    window.onload = function(){
+        document.onselectstart = new Function('event.returnValue=false');
+        $("#main").draggable({containment:'parent',drag:setChoice});
+        var mainDiv = document.getElementById('main');
+        var rightDiv = document.getElementById('right');
+        var upDiv = document.getElementById('up');
+        var leftDiv = document.getElementById('left');
+        var downDiv = document.getElementById('down');
+        var leftUpDiv = document.getElementById('left-up');
+        var rightUpDiv = document.getElementById('right-up');
+        var rightDownDiv = document.getElementById('right-down');
+        var leftDownDiv = document.getElementById('left-down');
+        var ifKeyDown=false;
+        var contact = '';//表示被按下的触点
+        //鼠标按下事件
+        rightDiv.onmousedown = function(e){
+            e.stopPropagation();//阻止事件冒泡
+            ifKeyDown = true;
+            contact = 'right';
+        }
+        upDiv.onmousedown = function(){
+            e.stopPropagation();
+            ifKeyDown = true;
+            contact = 'up';
+        }
+        leftDiv.onmousedown = function(){
+            e.stopPropagation();
+            ifKeyDown = true;
+            contact = 'left';
+        }
+        downDiv.onmousedown = function(){
+            e.stopPropagation();
+            ifKeyDown = true;
+            contact = 'down';
+        }
+        leftUpDiv.onmousedown = function(){
+            e.stopPropagation();
+            ifKeyDown = true;
+            contact = 'left-up';
+        }
+        rightUpDiv.onmousedown = function(){
+            e.stopPropagation();
+            ifKeyDown = true;
+            contact = 'right-up';
+        }
+        rightDownDiv.onmousedown = function(){
+            e.stopPropagation();
+            ifKeyDown = true;
+            contact = 'right-down';
+        }
+        leftDownDiv.onmousedown = function(){
+            e.stopPropagation();
+            ifKeyDown = true;
+            contact = 'left-down';
+        }
+        window.onmouseup = function(){
+            ifKeyDown = false;
+        }
+        //鼠标移动事件
+        window.onmousemove = function(e){
+            if(ifKeyDown == true){
+                switch(contact){
+                    case 'right':rightMove(e);break;
+                    case 'up':upMove(e);break;
+                    case 'left':leftMove(e);break;
+                    case 'down':downMove(e);break;
+                    case 'left-up':leftMove(e);upMove(e);break;
+                    case 'right-up':rightMove(e);upMove(e);break;
+                    case 'right-down':rightMove(e);downMove(e);break;
+                    case 'left-down':leftMove(e);downMove(e);break;
+                }
+            }
+            setChoice();
+            setPreview();
+        }
+        //right
+        function rightMove(e){
+            var x = e.clientX;//鼠标x坐标
+            var widthBefore = mainDiv.offsetWidth-2;//鼠标原来的宽度
+            var addWidth = x - getPosition(mainDiv).left - widthBefore;//鼠标移动后增加的宽度
+            mainDiv.style.width=addWidth + widthBefore + 'px';
+
+        }
+        //up
+        function upMove(e){
+            var y = e.clientY;//鼠标纵坐标
+            var mainY = getPosition(mainDiv).top;//选取框相对地屏幕上边的距离
+            var addHiehgt = mainY - y;//增加的高度
+            var heightBefore = mainDiv.offsetHeight - 2;//原来高度
+            mainDiv.style.height = heightBefore + addHiehgt + 'px';
+            mainDiv.style.top = mainDiv.offsetTop - addHiehgt + 'px';
+
+        }
+        //left
+        function leftMove(e){
+            var x = e.clientX;//鼠标横坐标
+            var mainX = getPosition(mainDiv).left;
+            var addWidth = mainX - x;
+            var widthBefore =  mainDiv.offsetWidth - 2;
+            mainDiv.style.width = widthBefore + addWidth + 'px';
+            mainDiv.style.left = mainDiv.offsetLeft - addWidth + 'px';
+
+        }
+        //down
+        function downMove(e){
+            var y = e.clientY;//鼠标纵坐标
+            var heightBefore = mainDiv.offsetHeight - 2;
+            var mainY = getPosition(mainDiv).top;
+            var addHeight = y - heightBefore - mainY;
+            mainDiv.style.height =  addHeight + heightBefore + 'px';
+        }
+        //设置选取区域高亮可见
+        function setChoice(){
+            var top = mainDiv.offsetTop;
+            var right = mainDiv.offsetLeft + mainDiv.offsetWidth;
+            var bottom = mainDiv.offsetTop + mainDiv.offsetHeight;
+            var left = mainDiv.offsetLeft;
+            var img2 = document.getElementById('img2');
+            img2.style.clip = 'rect('+top+'px,'+right+'px,'+bottom+'px,'+ left+'px)';
+        }
+        //预览函数
+        function setPreview(){
+            var top = mainDiv.offsetTop;
+            var right = mainDiv.offsetLeft + mainDiv.offsetWidth;
+            var bottom = mainDiv.offsetTop + mainDiv.offsetHeight;
+            var left = mainDiv.offsetLeft;
+            var img3 = document.getElementById('img3');
+            img3.style.clip = 'rect('+top+'px,'+right+'px,'+bottom+'px,'+ left+'px)';
+            img3.style.top = -top + 'px';
+            img3.style.left = -left + 'px';
+        }
+    }
+    //获取元素相对于屏幕左边的距离,利用offsetLeft
+    function getPosition(node){
+        var left = node.offsetLeft;
+        var top = node.offsetTop;
+        var parent = node.offsetParent;
+        while(parent != null){
+            left += parent.offsetLeft;
+            top += parent.offsetTop;
+            parent = parent.offsetParent;
+        }
+        return {'left':left,'top':top};
+    }
+
+</script>
+</body>
+</html>
