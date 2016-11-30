@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>javascript_图片缓慢缩放</title>
+    <style>
+        div{
+            width:400px;
+            margin:0 auto;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <img id='myImage' src="4.jpeg" alt=""><br>
+    <input type="button" id="max" value="放大">
+    <input type="button" id="min" value="缩小">
+</div>
+<script>
+    window.onload = function(){
+        var img = document.getElementById('myImage');
+        var maxBtn = document.getElementById('max');
+        var minBtn = document.getElementById('min');
+        var maxWidth = img.width * 2;
+        var minWidth = img.width * 0.5;
+        maxBtn.onclick = function(){
+            maxFun();
+        }
+        minBtn.onclick = function(){
+            minFun();
+        }
+        function maxFun(){
+            var endWidth = img.width * 1.1;
+            var maxTimer = setInterval(function(){
+                if(img.width < endWidth){
+                    if(img.width < maxWidth){
+                        img.width = img.width * 1.05;
+                        img.height = img.height * 1.05;
+                    }else{
+                        alert('已经是最大!');
+                        clearInterval(maxTimer);
+                    }
+                }else{
+                    clearInterval(maxTimer);
+                }
+            },20);
+        }
+        function minFun(){
+            var endWidth = img.width * 0.9;
+            var minTimer = setInterval(function(){
+                if(img.width > endWidth){
+                    if(img.width > minWidth){
+                        img.width = img.width * 0.95;
+                        img.height = img.height * 0.95;
+                    }else{
+                        alert('已经是最小!');
+                        clearInterval(minTimer);
+                    }
+                }else{
+                    clearInterval(minTimer);
+                }
+            },20);
+        }
+    }
+</script>
+</body>
+</html>
