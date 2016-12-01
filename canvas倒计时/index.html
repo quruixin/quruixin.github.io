@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas倒计时</title>
+    <style>
+        canvas{
+            border:1px solid #aaa;
+            display:block;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+<body>
+<canvas id="canvas4">当前浏览器不支持canvas,请更换浏览器后再试,绘制倒计时</canvas>
+<canvas id="canvas5">当前浏览器不支持canvas,请更换浏览器后再试,绘制一个小球运动</canvas>
+<canvas id="canvas3" width="1000" height="700">当前浏览器不支持canvas,请更换浏览器后再试,绘制弧型</canvas>
+<canvas id="canvas2">当前浏览器不支持canvas,请更换浏览器后再试.绘制七巧板</canvas>
+<canvas id="canvas1" width="800" height="500">当前浏览器不支持canvas,请更换浏览器后再试.绘制直线</canvas>
+<script src="digit.js"></script>
+<script>
+    var WINDOW_WIDTH = 1024;
+    var WINDOW_HEIGHT = 768;
+    var MARGIN_LEFT = 30;
+    var MARGIN_TOP = 80;
+    var RADIUS = 8;
+    const endTime = new Date(2016,11,2,0,0,0);
+    var curShowTimeSeconds = 0;
+    var balls = [];
+    var colors = ['#33B5E5','#0099CC','#33B5E5','#AA66CC','#9933CC','#99CC00','#669900','#FFBB33','#FF8800','#FF4444','#CC000'];
+    var canvas4 = document.getElementById('canvas4');
+    var context4 = canvas4.getContext('2d');
+    canvas4.width = WINDOW_WIDTH;
+    canvas4.height = WINDOW_HEIGHT;
+    curShowTimeSeconds = getCurrentShowTimeSeconds();
+    setInterval(function(){
+        render(context4);
+        update();
+    },50);
+    function render(cxt){
+        cxt.clearRect(0,0,WINDOW_WIDTH,WINDOW_HEIGHT)
+        var hours = parseInt(curShowTimeSeconds/3600);
+        var minutes = parseInt((curShowTimeSeconds-hours*3600)/60);
+        var seconds = parseInt(curShowTimeSeconds%60);
+        renderDigit(MARGIN_LEFT , MARGIN_TOP , parseInt(hours/10) , cxt);
+        renderDigit(MARGIN_LEFT + 15*(RADIUS+1) , MARGIN_TOP , parseInt(hours%10) , cxt);
+        renderDigit(MARGIN_LEFT + 30*(RADIUS+1) , MARGIN_TOP , 10 , cxt);
+        renderDigit(MARGIN_LEFT + 39*(RADIUS+1) , MARGIN_TOP , parseInt(minutes/10)  , cxt);
+        renderDigit(MARGIN_LEFT + 54*(RADIUS+1) , MARGIN_TOP , parseInt(minutes%10)  , cxt);
+        renderDigit(MARGIN_LEFT + 69*(RADIUS+1) , MARGIN_TOP , 10 , cxt);
+        renderDigit(MARGIN_LEFT + 78*(RADIUS+1) , MARGIN_TOP , parseInt(seconds/10)  , cxt);
+        renderDigit(MARGIN_LEFT + 93*(RADIUS+1) , MARGIN_TOP , parseInt(seconds%10)  , cxt);
+
+        for(var i=0;i<balls.length;i++){
+            cxt.fillStyle = balls[i].color;
+            cxt.beginPath();
+            cxt.arc(balls[i].x,balls[i].y,RADIUS,0,2*Math.PI,true);
+            cxt.closePath();
+            cxt.fill();
+        }
+    }
+    function update(){
+        var nextShowTimeSeconds = getCurrentShowTimeSeconds();
+        var nextHours = parseInt(nextShowTimeSeconds/3600);
+        var nextMinutes = parseInt((nextShowTimeSeconds-nextHours*3600)/60);
+        var nextSeconds = parseInt(nextShowTimeSeconds%60);
+        var curHours = parseInt(curShowTimeSeconds/3600);
+        var curMinutes = parseInt((curShowTimeSeconds-curHours*3600)/60);
+        var curSeconds = parseInt(curShowTimeSeconds%60);
+        if(nextSeconds != curSeconds){
+            if(parseInt(curHours/10) != parseInt(nextHours/10)){
+                addBalls(MARGIN_LEFT + 0,MARGIN_TOP,parseInt(curHours/10));
+            }
+            if(parseInt(curHours%10) != parseInt(nextHours%10)){
+                addBalls(MARGIN_LEFT + 15*(RADIUS+1),MARGIN_TOP,parseInt(curHours%10));
+            }
+            if(parseInt(curMinutes/10) != parseInt(nextMinutes/10)){
+                addBalls(MARGIN_LEFT + 39*(RADIUS+1),MARGIN_TOP,parseInt(curMinutes/10));
+            }
+            if(parseInt(curMinutes%10) != parseInt(nextMinutes%10)){
+                addBalls(MARGIN_LEFT + 54*(RADIUS+1),MARGIN_TOP,parseInt(curMinutes%10));
+            }
+            if(parseInt(curSeconds/10) != parseInt(nextSeconds/10)){
+                addBalls(MARGIN_LEFT + 78*(RADIUS+1),MARGIN_TOP,parseInt(curSeconds/10));
+            }
+            if(parseInt(curSeconds%10) != parseInt(nextSeconds%10)){
+                addBalls(MARGIN_LEFT + 93*(RADIUS+1),MARGIN_TOP,parseInt(curSeconds%10));
+            }
+            curShowTimeSeconds = nextShowTimeSeconds;
+        }
+        updateBalls();
+    }
+    function updateBalls(){
+        for(var i=0;i<balls.length;i++){
+            balls[i].x += balls[i].vx;
+            balls[i].y += balls[i].vy;
+            balls[i].vy += balls[i].g;
+            if(balls[i].y >= WINDOW_HEIGHT-RADIUS){
+                balls[i].y = WINDOW_HEIGHT-RADIUS;
+                balls[i].vy = -balls[i].vy*0.75;
+            }
+        }
+    }
+    function addBalls(x,y,num){
+        for(var i=0;i<digit[num].length;i++){
+            for(var j=0;j<digit[num][i].length;j++){
+                if(digit[num][i][j]==1){
+                    var aBall = {
+                        x:x+j*2*(RADIUS+1)+(RADIUS+1),
+                        y:y+i*2*(RADIUS+1)+(RADIUS+1),
+                        g:1.5+Math.random(),
+                        vx:Math.pow(-1,Math.ceil(Math.random()*1000))*4,//取正1或负1
+                        vy:-10,
+                        color:colors[Math.floor(Math.random()*colors.length)]
+                    }
+                    balls.push(aBall);
+                }
+            }
+        }
+    }
+    function renderDigit(x,y,num,cxt){
+        cxt.fillStyle = 'rgb(0,102,153)';
+        for(var i=0;i<digit[num].length;i++){
+            for(var j=0;j<digit[num][i].length;j++){
+                if(digit[num][i][j]==1){
+                    cxt.beginPath();
+                    cxt.arc(x+j*2*(RADIUS+1)+(RADIUS+1),y+i*2*(RADIUS+1)+(RADIUS+1),RADIUS,0,2*Math.PI);
+                    cxt.closePath();
+                    cxt.fill();
+                }
+            }
+        }
+    }
+    function getCurrentShowTimeSeconds(){
+        var curTime = new Date();
+        var ret = endTime.getTime() - curTime.getTime();
+        ret = Math.round(ret/1000);
+        return ret >= 0 ? ret : 0;
+    }
+</script>
+<script>
+    var ball = {x:512,y:100,r:20,g:2,vx:-4,vy:-10,color:'#005588'};
+    var canvas5 = document.getElementById('canvas5');
+    var context5 = canvas5.getContext('2d');
+    canvas5.width = 1024;
+    canvas5.height = 768;
+    setInterval(function(){
+        render5(context5);
+        update5();
+    },50);
+    function render5(cxt){
+        cxt.clearRect(0,0,cxt.canvas.width,cxt.canvas.height);
+        cxt.fillStyle = ball.color;
+        cxt.beginPath();
+        cxt.arc(ball.x,ball.y,ball.r,0,2*Math.PI);
+        cxt.closePath();
+        cxt.fill();
+    }
+    function update5(){
+        ball.x +=ball.vx;
+        ball.y +=ball.vy;
+        ball.vy +=ball.g;
+        if(ball.y >= 768 - ball.r){
+            ball.y = 768 - ball.r;
+            ball.vy = -ball.vy*0.5;
+        }
+    }
+</script>
+<script>
+    var canvas3 = document.getElementById('canvas3');
+    var context3 = canvas3.getContext('2d');
+    //context.arc(centerx圆心横坐标,centery圆心纵坐标,radius半径,startingAngle起始点,endingAngle结束点,anticlockwise=false默认true顺时针false逆时针);
+    context3.lineWidth = 5;
+    context3.strokeStyle = '#005588';
+    context3.beginPath();
+    context3.arc(50,50,20,0,0.5*Math.PI,true);
+    context3.closePath();
+    context3.stroke();
+    for(var i=0;i<10;i++){
+        context3.beginPath();
+        context3.arc(50+i*100,160,40,0,2*Math.PI*(i+1)/10);
+        context3.closePath();
+        context3.stroke();
+    }
+    for(var i=0;i<10;i++){
+        context3.beginPath();
+        context3.arc(50+i*100,260,40,0,2*Math.PI*(i+1)/10);
+        context3.stroke();
+    }
+    for(var i=0;i<10;i++){
+        context3.beginPath();
+        context3.arc(50+i*100,360,40,0,2*Math.PI*(i+1)/10,true);
+        context3.closePath();
+        context3.stroke();
+    }
+    for(var i=0;i<10;i++){
+        context3.beginPath();
+        context3.arc(50+i*100,460,40,0,2*Math.PI*(i+1)/10,true);
+        context3.stroke();
+    }
+    context3.fillStyle = '#005588';
+    for(var i=0;i<10;i++){
+        context3.beginPath();
+        context3.arc(50+i*100,560,40,0,2*Math.PI*(i+1)/10,true);
+        context3.fill();
+    }
+</script>
+<script>
+    var tangram = [
+        {p:[{x:0,y:0},{x:800,y:0},{x:400,y:400}],color:'#caff67'},
+        {p:[{x:0,y:0},{x:400,y:400},{x:0,y:800}],color:'#67becf'},
+        {p:[{x:800,y:0},{x:800,y:400},{x:600,y:600},{x:600,y:200}],color:'#ef3d61'},
+        {p:[{x:600,y:200},{x:800,y:0},{x:400,y:400}],color:'#caff67'},
+        {p:[{x:0,y:0},{x:600,y:600},{x:400,y:800},{x:200,y:600}],color:'#a594c0'},
+        {p:[{x:200,y:600},{x:400,y:800},{x:0,y:800}],color:'#fa8ecc'},
+        {p:[{x:800,y:400},{x:800,y:800},{x:400,y:800}],color:'#f6ca29'}
+    ]
+    var canvas2 = document.getElementById('canvas2');
+    canvas2.width = 800;
+    canvas2.height = 800;
+    var context2 = canvas2.getContext('2d');
+    for(var i=0;i<tangram.length;i++){
+        draw(tangram[i],context2)
+    }
+    function draw(piece,cxt){
+        cxt.beginPath();
+        cxt.moveTo(piece.p[0].x,piece.p[0].y);
+        for(var i=1;i<piece.p.length;i++){
+            cxt.lineTo(piece.p[i].x,piece.p[i].y);
+        }
+        cxt.closePath();
+        cxt.fillStyle = piece.color;
+        cxt.fill();
+    }
+
+</script>
+<script>
+    var canvas1 = document.getElementById('canvas1');
+    //判断浏览器是否支持canvas
+    if(canvas1.getContext('2d')){
+        var context1 = canvas1.getContext('2d');
+        //状态描述
+        context1.beginPath();//开始一个图案
+        context1.moveTo(100,100);//开始位置
+        context1.lineTo(400,400);//起始位置
+        context1.lineTo(100,400);
+        context1.lineTo(100,100);
+        context1.closePath();//结束一个图案
+        //填充颜色
+        context1.fillStyle = "rgb(2,100,30)";//填充颜色
+        context1.fill();//填充
+        context1.lineWidth = 5;//线条宽度
+        context1.strokeStyle = "#005588";//线条样式及颜色
+        //具体绘制
+        context1.stroke();//绘制
+
+        context1.beginPath();//开始一个图案
+        context1.moveTo(200,100);//开始位置
+        context1.lineTo(500,400);
+        context1.closePath();//结束一个图案
+        context1.strokeStyle = "red";
+        context1.stroke();//绘制
+
+    }else{
+        alert('当前浏览器不支持canvas,请更换浏览器后再试');
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+

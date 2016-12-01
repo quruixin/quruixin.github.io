@@ -118,6 +118,9 @@
     <img id='img3' src="1.jpg" alt="">
 </div>
 <script>
+    //clientX:事件属性返回当事件被触发时鼠标指针向对于浏览器页面（或客户区）的水平坐标。客户区指的是当前窗口。
+    //offsetwidth:是元素相对父元素的偏移宽度。等于border+padding+width
+    //clientWidth是对象看到的宽度
     window.onload = function(){
         document.onselectstart = new Function('event.returnValue=false');
         $("#main").draggable({containment:'parent',drag:setChoice});

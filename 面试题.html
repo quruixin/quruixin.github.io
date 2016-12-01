@@ -4,13 +4,61 @@
     <title>面试题总结</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style>
+        #html,#css,#javascript{
+            border:1px solid #aaa;
+            padding:5px 10px;
+            font-size: 14px;
+        }
+        details>summary{
+            font-size: 15px;
+            font-weight: 700;
+        }
+        details>p{
+            margin-left:35px;
+        }
+        h1{
+            font-size: 18px;
+            font-weight: 900;
+        }
     </style>
 </head>
 <body>
-    <dl>
-        <dt>行内元素,块级元素</dt>
-        <dd>行内元素:a,img,em strong,span,sub sup,form内元素</dd>
-        <dd>块级元素:div,table,p,h1-h6,iframe,dl ul ol,form</dd>
-    </dl>
+<h1>HTML</h1>
+<div id="html">
+    <details>
+        <summary>行内元素,块级元素,空元素</summary>
+        <p>css规定,每个元素都有display属性,确定该元素的类型,每个元素都有默认的display值,block为块级元素,inline为行内元素</p>
+        <p>行内元素:a,b,img,em strong,span,sub sup,form,input,select,strong</p>
+        <p>块级元素:div,table,p,h1-h6,iframe,dl ul ol,li,dl,dt,dd,for</p>
+        <p>常见的空元素:br,hr,img,input,link,meta</p>
+        <p>area,base,col,command,embed,keygen,param,source,track,wbr不同浏览器有差异</p>
+    </details>
+
+</div>
+<h1>CSS</h1>
+<div id="css">
+    <details>
+        <summary>css盒子模型,与低版本ie盒子模型有什么不同</summary>
+        <p>有两种:ie盒子模型,w3c盒子模型.盒模型:content,padding,margin,border.区别:ie的content部分把border和margin算了进去</p>
+    </details>
+    <details>
+        <summary>css有哪些选择符?哪些属性可以继承?</summary>
+        <p>1.id选择器(#id)2.类选择器(.class)3.标签选择器(div,h1,p)4.相邻选择器(h1+p)5.子选择器(ul>li)6.后代选择器(ul a)7.通配符选择器(*)
+            8.属性选择器(a[rel='external']9.伪类选择器(a:hover,li:nth-child)</p>
+        <p>可继承的:font-size,font-family,color,ul,li,dl,dt,dd</p>
+        <p>不可继承的:borderpadding margin width height</p>
+    </details>
+</div>
+<h1>JavaScript</h1>
+<div id="javascript">
+    <details>
+        <summary>js基本数据类型</summary>
+        <p>Undefined,Null,Boolean,Number,String(ECMAScript2015新增Symbol[创建后独一无二不可变的数据类型])</p>
+    </details>
+    <details>
+        <summary>js内置对象</summary>
+        <p>Object是js中所有对象的父对象.数据封装类对象:Object,Array,Boolean,Number,String.其他对象:Function,Arguments,Math,Date,RegExp,Error</p>
+    </details>
+</div>
 </body>
 </html>
