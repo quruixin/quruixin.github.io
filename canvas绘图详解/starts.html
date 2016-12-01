@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>满天星星</title>
+    <style>
+        canvas{
+            border:1px solid #aaa;
+            display:block;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas">您的浏览器不支持canvas,绘制满天星星</canvas>
+<script>
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    canvas.width = 1200;
+    canvas.height = 800;
+  /*  var linearGrad = context.createLinearGradient(0,0,0,canvas.height);
+    linearGrad.addColorStop(0.0,'black');
+    linearGrad.addColorStop(1.0,'#035');
+    context.fillStyle=linearGrad;*/
+    var skyStyle = context.createRadialGradient(canvas.width/2,canvas.height,0,canvas.width/2,canvas.height,canvas.height);
+    skyStyle.addColorStop(0.0,'#035');
+    skyStyle.addColorStop(1.0,'#000');
+    context.fillStyle=skyStyle;
+    context.fillRect(0,0,canvas.width,canvas.height);
+    for(var i=0;i<200;i++){
+        var r=Math.random()*2+5;
+        var x=Math.random()*canvas.width;
+        var y=Math.random()*canvas.height*0.65;
+        var a=Math.random()*360;
+        drawStar(context,r,r/2.0,x,y,a);
+    }
+    function drawStar(cxt,r,R,x,y,rot){
+        cxt.beginPath();
+        for(var i=0;i<5;i++){
+            cxt.lineTo(Math.cos((18+i*72-rot)/180*Math.PI)*R+x,-Math.sin((18+i*72-rot)/180*Math.PI)*R+y);
+            cxt.lineTo(Math.cos((54+i*72-rot)/180*Math.PI)*r+x,-Math.sin((54+i*72-rot)/180*Math.PI)*r+y);
+        }
+        cxt.closePath();
+        cxt.fillStyle='#fb3';
+        cxt.strokeStyle='#fd5';
+        cxt.lineWidth=3;
+        cxt.lineJoin=3;
+        cxt.fill();
+        cxt.stroke();
+    }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

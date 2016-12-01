@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图形变换</title>
+    <style>
+        canvas{
+            border:1px solid #aaa;
+            display:block;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas">您的浏览器不支持canvas,绘制五角星</canvas>
+<script>
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    canvas.width = 800;
+    canvas.height = 800;
+    //a c e
+    //b d f
+    //0 0 1
+    //a,d水平垂直绽放
+    //b,c水平垂直倾斜
+    //e,f水平垂直位移
+    context.fillStyle='red';
+    context.strokeStyle='#058';
+    context.lineWidth=5;
+    context.save();
+    //context.transform(1,0,0,1,50,100);
+    context.transform(2,0,0,1,50,100);
+    context.transform(1,-0.2,-0.2,1,50,100);//与前面累加的
+    context.setTransform(1,0,0,1,50,100);//清空,重新设置transform
+
+    context.fillRect(50,50,300,300);
+    context.strokeRect(50,50,300,300);
+    context.restore();
+</script>
+</body>
+</html>

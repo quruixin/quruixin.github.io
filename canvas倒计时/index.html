@@ -2,16 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>canvas倒计时</title>
+    <title>canvas时钟</title>
     <style>
-        canvas{
+        body{
+            height:100%;
+        }
+        canvas:not(#canvas4){
             border:1px solid #aaa;
             display:block;
             margin:50px auto;
         }
+        #canvas4{
+            height:100%;
+        }
     </style>
 </head>
-<body>
 <body>
 <canvas id="canvas4">当前浏览器不支持canvas,请更换浏览器后再试,绘制倒计时</canvas>
 <canvas id="canvas5">当前浏览器不支持canvas,请更换浏览器后再试,绘制一个小球运动</canvas>
@@ -23,11 +28,17 @@
     var WINDOW_WIDTH = 1024;
     var WINDOW_HEIGHT = 768;
     var MARGIN_LEFT = 30;
-    var MARGIN_TOP = 80;
+    var MARGIN_TOP = 60;
     var RADIUS = 8;
-    const endTime = new Date(2016,11,2,0,0,0);
+    //倒计时
+    //var endTime = new Date();
+    //endTime.setTime(endTime.getTime() + 24 * 60 * 60 * 1000);
     var curShowTimeSeconds = 0;
     var balls = [];
+    WINDOW_WIDTH = document.body.clientWidth;
+    //WINDOW_HEIGHT = document.body.clientHeight;
+    MARGIN_LEFT = Math.round(WINDOW_WIDTH/10);
+    RADIUS = Math.round(WINDOW_WIDTH*4/5/108)-1;
     var colors = ['#33B5E5','#0099CC','#33B5E5','#AA66CC','#9933CC','#99CC00','#669900','#FFBB33','#FF8800','#FF4444','#CC000'];
     var canvas4 = document.getElementById('canvas4');
     var context4 = canvas4.getContext('2d');
@@ -51,7 +62,6 @@
         renderDigit(MARGIN_LEFT + 69*(RADIUS+1) , MARGIN_TOP , 10 , cxt);
         renderDigit(MARGIN_LEFT + 78*(RADIUS+1) , MARGIN_TOP , parseInt(seconds/10)  , cxt);
         renderDigit(MARGIN_LEFT + 93*(RADIUS+1) , MARGIN_TOP , parseInt(seconds%10)  , cxt);
-
         for(var i=0;i<balls.length;i++){
             cxt.fillStyle = balls[i].color;
             cxt.beginPath();
@@ -101,6 +111,15 @@
                 balls[i].vy = -balls[i].vy*0.75;
             }
         }
+        var cnt = 0;
+        for(var i=0;i<balls.length;i++){
+            if(balls[i].x + RADIUS>0 && balls[i].x-RADIUS<WINDOW_WIDTH){
+                balls[cnt++] = balls[i];
+            }
+        }
+        while(balls.length>Math.min(300,cnt)){
+            balls.pop();
+        }
     }
     function addBalls(x,y,num){
         for(var i=0;i<digit[num].length;i++){
@@ -133,10 +152,14 @@
         }
     }
     function getCurrentShowTimeSeconds(){
-        var curTime = new Date();
+        //倒计时
+        /*var curTime = new Date();
         var ret = endTime.getTime() - curTime.getTime();
         ret = Math.round(ret/1000);
-        return ret >= 0 ? ret : 0;
+        return ret >= 0 ? ret : 0;*/
+        var curTime = new Date();
+        var ret = curTime.getHours() * 3600 + curTime.getMinutes() * 60 + curTime.getSeconds();
+        return ret;
     }
 </script>
 <script>

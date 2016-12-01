@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>直线和多边形</title>
+    <style>
+        canvas{
+            border:1px solid #aaa;
+            display:block;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas7">您的浏览器不支持canvas,绘制五角星</canvas>
+<canvas id="canvas6">您的浏览器不支持canvas,绘制矩形函数</canvas>
+<canvas id="canvas5">您的浏览器不支持canvas,绘制矩形用线</canvas>
+<canvas id="canvas4">您的浏览器不支持canvas,绘制填充的箭头</canvas>
+<canvas id="canvas3">您的浏览器不支持canvas,绘制不同颜色的3条线</canvas>
+<canvas id="canvas2">您的浏览器不支持canvas,绘制不连接的3条线</canvas>
+<canvas id="canvas1">您的浏览器不支持canvas,绘制不填充的箭头</canvas>
+<script>
+    var canvas7 = document.getElementById('canvas7');
+    var context7 = canvas7.getContext('2d');
+    canvas7.width = 800;
+    canvas7.height = 800;
+    context7.lineWidth=10;
+    context7.lineJoin = 'round';//线交叉默认时候的尖角,bevel平的,round圆角,miter与miterLimit=10配合使用
+    context7.miterLimit=10;
+    drawStar(context7,150,300,400,400,30);
+    function drawStar(cxt,r,R,x,y,rot){
+        cxt.beginPath();
+        for(var i=0;i<5;i++){
+            cxt.lineTo(Math.cos((18+i*72-rot)/180*Math.PI)*R+x,-Math.sin((18+i*72-rot)/180*Math.PI)*R+y);
+            cxt.lineTo(Math.cos((54+i*72-rot)/180*Math.PI)*r+x,-Math.sin((54+i*72-rot)/180*Math.PI)*r+y);
+        }
+        cxt.closePath();
+        context7.stroke();
+    }
+</script>
+<script>
+    var canvas6 = document.getElementById('canvas6');
+    var context6 = canvas6.getContext('2d');
+    canvas6.width = 800;
+    canvas6.height = 800;
+
+    context6.lineWidth=50;
+    context6.strokeStyle='blue';
+
+    context6.beginPath();
+    context6.moveTo(100,200);
+    context6.lineTo(700,200);
+    context6.lineCap='butt';//设置线两头的样式,只能用于开始和结尾处,默认值
+    context6.stroke();
+
+    context6.beginPath();
+    context6.moveTo(100,400);
+    context6.lineTo(700,400);
+    context6.lineCap='round';//设置线两头的样式,圆形头
+    context6.stroke();
+
+    context6.beginPath();
+    context6.moveTo(100,600);
+    context6.lineTo(700,600);
+    context6.lineCap='square';//设置线两头的样式,方形头.可以和closePath()一样解决多边形封闭的问题
+    context6.stroke();
+
+    context6.lineWidth=1;
+    context6.strokeStyle='red';
+    context6.moveTo(100,100);
+    context6.lineTo(100,700);
+    context6.moveTo(700,100);
+    context6.lineTo(700,700);
+    context6.stroke();
+
+</script>
+<script>
+    var canvas5 = document.getElementById('canvas5');
+    var context5 = canvas5.getContext('2d');
+    canvas5.width = 800;
+    canvas5.height = 800;
+    draw(context5,100,100,400,400,10,'red','yellow');
+    draw2(context5,300,300,400,400,10,'green','rgba(0,256,256,.5)');
+    function draw(cxt,x,y,width,height,borderWidth,borderColor,fillColor){
+        cxt.beginPath();
+        cxt.moveTo(x,y);
+        //cxt.rect(x,y,width,height);
+        cxt.lineTo(x+width,y);
+        cxt.lineTo(x+width,y+height);
+        cxt.lineTo(x,y+height);
+        cxt.closePath();
+        cxt.lineWidth=borderWidth;
+        cxt.strokeStyle=borderColor;
+        cxt.fillStyle=fillColor;
+        cxt.fill();
+        cxt.stroke();
+    }
+    function draw2(cxt,x,y,width,height,borderWidth,borderColor,fillColor) {
+        cxt.lineWidth=borderWidth;
+        cxt.fillStyle=fillColor;
+        cxt.strokeStyle=borderColor;
+        cxt.fillRect(x, y, width, height);
+        cxt.strokeRect(x, y, width, height);
+        //fillStyle,strokeStyle赋值
+        //#fff,rgb,rgba,hsl(20,62%,28%),hsla,red
+    }
+</script>
+<script>
+    var canvas4 = document.getElementById('canvas4');
+    var context4 = canvas4.getContext('2d');
+    canvas4.width = 800;
+    canvas4.height = 800;
+
+    context4.beginPath();
+    context4.moveTo(100,350);
+    context4.lineTo(500,350);
+    context4.lineTo(500,200);
+    context4.lineTo(700,400);
+    context4.lineTo(500,600);
+    context4.lineTo(500,450);
+    context4.lineTo(100,450);
+    //context4.lineTo(100,350);//删除后自动连接到起点
+    context4.closePath();
+    context4.lineWidth=10;
+    context4.fillStyle='yellow';
+    context4.strokeStyle='#058';//先填充再描边,不然会覆盖
+    context4.fill();//填充
+    context4.stroke();//绘制
+</script>
+<script>
+    var canvas3 = document.getElementById('canvas3');
+    var context3 = canvas3.getContext('2d');
+    canvas3.width = 800;
+    canvas3.height = 800;
+
+    context3.lineWidth = 20;
+
+    //context3.beginPath();//可以没有
+    context3.lineTo(100,200);
+    context3.lineTo(300,400);
+    context3.lineTo(100,600);
+    context3.strokeStyle = 'red';
+    context3.stroke();
+
+    context3.beginPath();
+    context3.lineTo(300,200);
+    context3.lineTo(500,400);
+    context3.lineTo(300,600);
+    context3.lineWidth = 10;
+    context3.strokeStyle = 'green';
+    context3.stroke();
+
+    context3.beginPath();
+    context3.lineTo(500,200);
+    context3.lineTo(700,400);
+    context3.lineTo(500,600);
+    context3.strokeStyle = 'blue';
+    context3.stroke();
+</script>
+<script>
+    var canvas2 = document.getElementById('canvas2');
+    var context2 = canvas2.getContext('2d');
+    canvas2.width = 800;
+    canvas2.height = 800;
+    context2.moveTo(100,200);
+    context2.lineTo(300,400);
+    context2.lineTo(100,600);
+
+    context2.moveTo(300,200);
+    context2.lineTo(500,400);
+    context2.lineTo(300,600);
+
+    context2.moveTo(500,200);
+    context2.lineTo(700,400);
+    context2.lineTo(500,600);
+    context2.lineWidth = 10;
+    context2.strokeStyle = '#058';
+    context2.stroke();
+</script>
+<script>
+    var canvas1 = document.getElementById('canvas1');
+    var context1 = canvas1.getContext('2d');
+    canvas1.width = 800;
+    canvas1.height = 800;
+    context1.moveTo(100,350);
+    context1.lineTo(500,350);
+    context1.lineTo(500,200);
+    context1.lineTo(700,400);
+    context1.lineTo(500,600);
+    context1.lineTo(500,450);
+    context1.lineTo(100,450);
+    context1.lineWidth = 10;
+    context1.strokeStyle = '#058';
+    context1.stroke();
+</script>
+</body>
+</html>

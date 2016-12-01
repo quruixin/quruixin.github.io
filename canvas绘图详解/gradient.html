@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>渐变</title>
+    <style>
+        canvas{
+            border:1px solid #aaa;
+            display:block;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas">的浏览器不支持canvas</canvas>
+<canvas id="canvas1">的浏览器不支持canvas</canvas>
+<script>
+    //var grd=context.createLinearGradient(xstart,ystart,xend,yend);
+    //grd.addColorStop(stop,color);
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    canvas.width = 800;
+    canvas.height = 800;
+
+    var linearGrad = context.createLinearGradient(-200,-200,1000,1000);
+    //var linearGrad = context.createLinearGradient(0,0,400,400);
+    //var linearGrad = context.createLinearGradient(0,0,800,0);
+    //var linearGrad = context.createLinearGradient(0,0,800,800);
+    //var linearGrad = context.createLinearGradient(0,0,0,800);
+    linearGrad.addColorStop(0.0,'white');
+    linearGrad.addColorStop(0.25,'yellow');
+    linearGrad.addColorStop(0.5,'green');
+    linearGrad.addColorStop(0.75,'blue');
+    linearGrad.addColorStop(1.0,'black');
+    context.fillStyle=linearGrad;
+    //context.fillRect(0,0,800,800);
+    context.fillRect(200,200,600,600);
+</script>
+<script>
+    //var grd=context.createRadialGradient(x0,y0,r0,x1,y1,r1);
+    //grad.addColorStop(stop,color);
+    var canvas1 = document.getElementById('canvas1');
+    var context1 = canvas1.getContext('2d');
+    canvas1.width = 800;
+    canvas1.height = 800;
+    var radialGrad = context.createRadialGradient(400,400,0,400,400,500);
+    radialGrad.addColorStop(0.0,'white');
+    radialGrad.addColorStop(0.25,'yellow');
+    radialGrad.addColorStop(0.5,'green');
+    radialGrad.addColorStop(0.75,'blue');
+    radialGrad.addColorStop(1.0,'black');
+    context1.fillStyle=radialGrad;
+    context1.fillRect(0,0,800,800);
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
