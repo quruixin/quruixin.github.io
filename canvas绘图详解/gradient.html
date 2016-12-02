@@ -14,6 +14,8 @@
 <body>
 <canvas id="canvas">的浏览器不支持canvas</canvas>
 <canvas id="canvas1">的浏览器不支持canvas</canvas>
+<canvas id="canvas2">的浏览器不支持canvas</canvas>
+<canvas id="canvas3">的浏览器不支持canvas</canvas>
 <script>
     //var grd=context.createLinearGradient(xstart,ystart,xend,yend);
     //grd.addColorStop(stop,color);
@@ -51,6 +53,61 @@
     radialGrad.addColorStop(1.0,'black');
     context1.fillStyle=radialGrad;
     context1.fillRect(0,0,800,800);
+</script>
+<script>
+    //createPattern(img,repeat-style);
+    //createPattern(canvas,repeat-style);
+    //createPattern(video,repeat-style);
+    //repeat-style:no-repeat,repeat-x,repeat-y,repeat
+    var canvas2 = document.getElementById('canvas2');
+    var context2 = canvas2.getContext('2d');
+    canvas2.width = 800;
+    canvas2.height = 800;
+    var backgroundImage = new Image();
+    backgroundImage.src='4.jpeg';
+    backgroundImage.onload=function(){
+        var pattern=context2.createPattern(backgroundImage,'no-repeat');
+        context2.fillStyle=pattern;
+        context2.fillRect(0,0,800,800);
+    }
+</script>
+<script>
+    var canvas3 = document.getElementById('canvas3');
+    var context3 = canvas3.getContext('2d');
+    canvas3.width = 800;
+    canvas3.height = 800;
+    var backCanvas = createBackgroundCanvas();
+    var pattern = context3.createPattern(backCanvas,'repeat');
+    context3.fillStyle = pattern;
+    context3.fillRect(0,0,800,800);
+    function createBackgroundCanvas(){
+        var backCanvas = document.createElement('canvas');
+        backCanvas.width=100;
+        backCanvas.height=100;
+        var backCanvasContext = backCanvas.getContext('2d');
+        drawStar(backCanvasContext,50,50,50,0);
+        return backCanvas;
+    }
+    function drawStar(cxt,x,y,R,rot){
+        cxt.save();
+        cxt.translate(x,y);
+        cxt.rotate(rot/180*Math.PI);
+        cxt.scale(R,R);
+        startPath(cxt);
+        cxt.fillStyle='#fb3';
+        cxt.fill();
+        cxt.restore();
+    }
+    function startPath(cxt){
+        cxt.beginPath();
+        for(var i=0;i<5;i++){
+            cxt.lineTo(Math.cos((18+i*72)/180*Math.PI),
+                -Math.sin((18+i*72)/180*Math.PI));
+            cxt.lineTo(Math.cos((54+i*72)/180*Math.PI)*0.5,
+                    -Math.sin((54+i*72)/180*Math.PI)*0.5);
+        }
+        cxt.closePath();
+    }
 </script>
 </body>
 </html>
