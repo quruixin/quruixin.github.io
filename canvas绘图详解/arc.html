@@ -12,7 +12,7 @@
     </style>
 </head>
 <body>
-<canvas id="canvas">您的浏览器不支持canvas/canvas>
+<canvas id="canvas">您的浏览器不支持canvas</canvas>
 <canvas id="canvas1">您的浏览器不支持canvas</canvas>
 <canvas id="canvas2">您的浏览器不支持canvas</canvas>
 <canvas id="canvas3">您的浏览器不支持canvas</canvas>
@@ -111,18 +111,49 @@
 
     context3.arc(400,400,300,0.5*Math.PI,1.5*Math.PI,true);
     context3.moveTo(400,100);
-    context3.arcTo(1200,400,400,700,(400-100)*dis(400,100,1200,400)/(1200-400));
+    context3.arcTo(1200,400,400,700,(400-100)*dis1(400,100,1200,400)/(1200-400));
     context3.stroke();
-    function dis(x1,x2,y1,y2){
+    function dis1(x1,x2,y1,y2){
         return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
     }
 </script>
-    <script>
-        //context.arcTo(x1,y1,x2,y2,radius)
-        var canvas3 = document.getElementById('canvas3');
-        var context3 = canvas3.getContext('2d');
-        canvas3.width = 800;
-        canvas3.height = 800;
-        </script>
+<script>
+    var canvas4 = document.getElementById('canvas4');
+    var context4 = canvas4.getContext('2d');
+    canvas4.width = 800;
+    canvas4.height = 800;
+    fillMoon(context4,2,400,400,300,0,'red');
+    function fillMoon(cxt,d,x,y,R,rot,fillColor){
+        cxt.save();
+        cxt.translate(x,y);
+        cxt.rotate(rot*Math.PI/180);
+        cxt.scale(R,R);
+        pathMoon(cxt,d);
+        cxt.fillStyle=fillColor || '#fb5';
+        cxt.fill();
+        cxt.restore();
+    }
+    function pathMoon(cxt,d){
+        cxt.beginPath();
+        cxt.arc(0,0,1,0.5*Math.PI,1.5*Math.PI,true);
+        cxt.moveTo(0,-1);
+        /*
+         * context.moveTo(x0,y0)开始点
+         * context.arcTo(x1,y1,控制点
+         * x2,y2) 结束点
+         * */
+        /*
+         * context.moveTo(x0,y0)开始点
+         * context.quadraticCurveTo(x1,y1,控制点
+         * x2,y2) 结束点
+         * */
+        //cxt.arcTo(d,0,0,1,dis(0,-1,d,0)/d);
+        cxt.quadraticCurveTo(1.2,0,0,1);
+        cxt.closePath();
+        function dis(x1,x2,y1,y2){
+            return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+        }
+    }
+</script>
 </body>
 </html>

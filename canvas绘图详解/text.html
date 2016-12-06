@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>写文字</title>
+    <style>
+        canvas{
+            border:1px solid #aaa;
+            display:block;
+            margin:10px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas1">您的浏览器不支持canvas</canvas>
+<script>
+    var canvas1 = document.getElementById('canvas1');
+    var context1 = canvas1.getContext('2d');
+    canvas1.width = 800;
+    canvas1.height = 800;
+    context1.font='bold 40px Arial';
+    context1.fillStyle='#058';
+    context1.fillText('我最喜欢哥,哥最喜欢姐,哈哈哈哈哈哈哈哈哈哈',40,100);
+    context1.lineWidth=1;
+    context1.strokeStyle='#058';
+    context1.strokeText('我最喜欢哥,哥最喜欢姐,哈哈哈哈哈哈哈哈哈哈',40,200);
+    context1.fillText('我最喜欢哥,哥最喜欢姐,哈哈哈哈哈哈哈哈哈哈',40,300,400);
+    context1.strokeText('我最喜欢哥,哥最喜欢姐,哈哈哈哈哈哈哈哈哈哈',40,400,400);
+
+    var linearGrad = context1.createLinearGradient(0,0,800,0);
+    linearGrad.addColorStop(0.0,'red');
+    linearGrad.addColorStop(0.25,'orange');
+    linearGrad.addColorStop(0.5,'yellow');
+    linearGrad.addColorStop(0.75,'green');
+    linearGrad.addColorStop(1.0,'purple');
+    context1.fillStyle=linearGrad;
+    context1.fillText('我最喜欢哥,哥最喜欢姐,哈哈哈哈哈哈哈哈哈哈',40,500);
+
+    var backgroundImage = new Image();
+    backgroundImage.src = '4.jpeg';
+    backgroundImage.onload = function(){
+        var pattern = context1.createPattern(backgroundImage,'repeat');
+        context1.fillStyle = pattern;
+        context1.font = 'bold 100px Arial';
+        context1.fillText('Canvas!',40,650);
+        context1.strokeText('Canvas!',40,650);
+    }
+    /*
+    * cxt.fillText(string,x,y,[maxlen]);
+    * cxt.strokeText(string,x,y,[maxlen]);
+    * */
+    /*
+    * context.moveTo(x0,y0)开始点
+    * context.arcTo(x1,y1,控制点
+    * x2,y2) 结束点
+    * */
+    /*
+     * context.moveTo(x0,y0)开始点
+     * context.quadraticCurveTo(x1,y1,控制点
+     * x2,y2) 结束点
+     * */
+    /*
+     * context.moveTo(x0,y0)开始点
+     * context.quadraticCurveTo(x1,y1,控制点
+     * x2,y2,控制点
+     * x3,y3) 结束点
+     * http://tinyrul.com/html5bezier
+     * */
+</script>
+</body>
+</html>
