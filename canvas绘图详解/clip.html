@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>剪辑区域</title>
+    <style>
+        body{
+            height:100%;
+        }
+        canvas:not(#canvas4){
+            border:1px solid #aaa;
+            display:block;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas2">当前浏览器不支持canvas,请更换浏览器后再试</canvas>
+<canvas id="canvas1">当前浏览器不支持canvas,请更换浏览器后再试</canvas>
+<canvas id="canvas">当前浏览器不支持canvas,请更换浏览器后再试</canvas>
+
+<script>
+    var searchLight={
+        x:400,
+        y:400,
+        radius:50,
+        vx:Math.random()*5+10,
+        vy:Math.random()*5+10
+    }
+    var rot=0;
+    var canvas2 = document.getElementById('canvas2');
+    var context2 = canvas2.getContext('2d');
+    canvas2.width = 400;
+    canvas2.height = 400;
+    setInterval(function(){
+        draw2(context2);
+        update2(canvas2.width,canvas2.height);
+    },40);
+    function draw2(cxt){
+        var canvas=cxt.canvas;
+        cxt.clearRect(0,0,canvas.width,canvas.height);
+        cxt.save();
+        cxt.beginPath();
+        cxt.fillStyle='black';
+        cxt.fillRect(0,0,canvas.width,canvas.height);
+
+        cxt.save();
+        cxt.translate(searchLight.x,searchLight.y);
+        cxt.rotate(rot/180*Math.PI);
+        cxt.scale(searchLight.radius,searchLight.radius);
+        drawStar(context2);
+        cxt.fillStyle='#fff';
+        cxt.fill();
+        cxt.restore();
+        cxt.clip();
+
+        cxt.font='bold 150px Arial';
+        cxt.textAlign='center';
+        cxt.textbaseline='middle';
+        cxt.fillStyle='#058';
+        cxt.fillText('CAANVAS',canvas.width/2,canvas.height/4);
+        cxt.fillText('CAANVAS',canvas.width/2,canvas.height/2);
+        cxt.fillText('CAANVAS',canvas.width/2,canvas.height*3/4);
+        cxt.restore();
+    }
+    function drawStar(cxt){
+        cxt.beginPath();
+        for(var i=0;i<5;i++){
+            cxt.lineTo(Math.cos((18+i*72)/180*Math.PI),
+                    -Math.sin((18+i*72)/180*Math.PI));
+            cxt.lineTo(Math.cos((54+i*72)/180*Math.PI)*0.5,
+                    -Math.sin((54+i*72)/180*Math.PI)*0.5);
+        }
+        cxt.closePath();
+    }
+    function update2(canvasWidth,canvasHeight){
+        rot+=1;
+        searchLight.x += searchLight.vx;
+        searchLight.y += searchLight.vy;
+        if(searchLight.x - searchLight.radius <= 0){
+            searchLight.vx = -searchLight.vx;
+            searchLight.x = searchLight.radius;
+        }
+        if(searchLight.x+searchLight.radius>=canvasWidth){
+            searchLight.vx =- searchLight.vx;
+            searchLight.x =canvasWidth-searchLight.radius;
+        }
+        if(searchLight.y-searchLight.radius<=0){
+            searchLight.vy=-searchLight.vy;
+            searchLight.y=searchLight.radius;
+        }
+        if(searchLight.y+searchLight.radius>=canvasHeight){
+            searchLight.vy=-searchLight.vy;
+            searchLight.y=canvasHeight-searchLight.radius;
+        }
+    }
+</script>
+<script>
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    canvas.width = 800;
+    canvas.height = 800;
+
+    context.beginPath();
+    context.fillStyle='black';
+    context.fillRect(0,0,canvas.width,canvas.height);
+
+    context.beginPath();
+    context.arc(400,400,150,0,Math.PI*2);
+    context.fillStyle='#fff';
+    context.fill();
+    context.clip();
+
+    context.font='bold 150px Arial';
+    context.textAlign='center';
+    context.textbaseline='middle';
+    context.fillStyle='#058';
+    context.fillText('CAANVAS',canvas.width/2,canvas.height/2);
+
+</script>
+<script>
+    var searchLight={
+        x:400,
+        y:400,
+        radius:50,
+        vx:Math.random()*5+10,
+        vy:Math.random()*5+10
+    }
+    var canvas1 = document.getElementById('canvas1');
+    var context1 = canvas1.getContext('2d');
+    canvas1.width = 400;
+    canvas1.height = 400;
+    setInterval(function(){
+        draw(context1);
+        update(canvas1.width,canvas1.height);
+    },40);
+    function draw(cxt){
+        var canvas=cxt.canvas;
+        cxt.clearRect(0,0,canvas.width,canvas.height);
+        cxt.save();
+        cxt.beginPath();
+        cxt.fillStyle='black';
+        cxt.fillRect(0,0,canvas.width,canvas.height);
+
+        cxt.beginPath();
+        cxt.arc(searchLight.x,searchLight.y,searchLight.radius,0,Math.PI*2);
+        cxt.fillStyle='#fff';
+        cxt.fill();
+        cxt.clip();
+
+        cxt.font='bold 150px Arial';
+        cxt.textAlign='center';
+        cxt.textbaseline='middle';
+        cxt.fillStyle='#058';
+        cxt.fillText('CAANVAS',canvas.width/2,canvas.height/4);
+        cxt.fillText('CAANVAS',canvas.width/2,canvas.height/2);
+        cxt.fillText('CAANVAS',canvas.width/2,canvas.height*3/4);
+        cxt.restore();
+    }
+    function update(canvasWidth,canvasHeight){
+        searchLight.x += searchLight.vx;
+        searchLight.y += searchLight.vy;
+        if(searchLight.x - searchLight.radius <= 0){
+            searchLight.vx = -searchLight.vx;
+            searchLight.x = searchLight.radius;
+        }
+        if(searchLight.x+searchLight.radius>=canvasWidth){
+            searchLight.vx =- searchLight.vx;
+            searchLight.x =canvasWidth-searchLight.radius;
+        }
+        if(searchLight.y-searchLight.radius<=0){
+            searchLight.vy=-searchLight.vy;
+            searchLight.y=searchLight.radius;
+        }
+        if(searchLight.y+searchLight.radius>=canvasHeight){
+            searchLight.vy=-searchLight.vy;
+            searchLight.y=canvasHeight-searchLight.radius;
+        }
+    }
+</script>
+</body>
+</html>

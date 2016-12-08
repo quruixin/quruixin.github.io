@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>剪辑区域</title>
+    <style>
+        body{
+            height:100%;
+        }
+        canvas:not(#canvas4){
+            border:1px solid #aaa;
+            display:block;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas3">当前浏览器不支持canvas,请更换浏览器后再试</canvas>
+<script>
+    var searchLight3={
+        x:400,
+        y:400,
+        radius:50,
+        vx:Math.random()*5+10,
+        vy:Math.random()*5+10
+    }
+    var canvas3 = document.getElementById('canvas3');
+    var context3 = canvas3.getContext('2d');
+    canvas3.width = 800;
+    canvas3.height = 800;
+    setInterval(function(){
+        draw3(context3);
+        update3();
+    },40);
+    function draw3(cxt){
+        var canvas=cxt.canvas;
+        cxt.clearRect(0,0,canvas.width,canvas.height);
+        cxt.save();
+        cxt.beginPath();
+        cxt.fillStyle='black';
+        cxt.fillRect(0,0,canvas.width,canvas.height);
+
+        cxt.save();
+        cxt.translate(searchLight3.x,searchLight3.y);
+        //cxt.rotate(rot/180*Math.PI);
+        cxt.scale(searchLight3.radius,searchLight3.radius);
+        drawStar3(context3);
+        cxt.fillStyle='#fff';
+        cxt.fill();
+        cxt.restore();
+        cxt.clip();
+
+        cxt.font='bold 150px Arial';
+        cxt.textAlign='center';
+        cxt.textbaseline='middle';
+        cxt.fillStyle='#058';
+        cxt.fillText('CAANVAS',canvas.width/2,canvas.height/4);
+        cxt.fillText('CAANVAS',canvas.width/2,canvas.height/2);
+        cxt.fillText('CAANVAS',canvas.width/2,canvas.height*3/4);
+        cxt.restore();
+    }
+    function drawStar3(cxt){
+        cxt.beginPath();
+        for(var i=0;i<5;i++){
+            cxt.lineTo(Math.cos((18+i*72)/180*Math.PI),
+                    -Math.sin((18+i*72)/180*Math.PI));
+            cxt.lineTo(Math.cos((54+i*72)/180*Math.PI)*0.5,
+                    -Math.sin((54+i*72)/180*Math.PI)*0.5);
+        }
+        cxt.closePath();
+    }
+    var isIncrease=true;
+    function update3(){
+
+        if(searchLight3.radius>700){
+            isIncrease=false;
+        }else if(searchLight3.radius<150){
+            isIncrease=true;
+        }
+        if(isIncrease){
+            searchLight3.radius+=5;
+        }else{
+            searchLight3.radius-=5;
+        }
+    }
+</script>
+</body>
+</html>

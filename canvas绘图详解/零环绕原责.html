@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>线不连接的多边形</title>
+    <style>
+        body{
+            height:100%;
+        }
+        canvas:not(#canvas4){
+            border:1px solid #aaa;
+            display:block;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas1">当前浏览器不支持canvas,请更换浏览器后再试</canvas>
+<canvas id="canvas">当前浏览器不支持canvas,请更换浏览器后再试</canvas>
+<script>
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    canvas.width = 800;
+    canvas.height = 800;
+    context.beginPath();
+    context.arc(400,400,300,0,Math.PI*2,false);
+    context.arc(400,400,150,0,Math.PI*2,true);
+    context.closePath();
+    context.fillStyle='#058';
+    context.shadowColor='gray';
+    context.shadowOffsetX=10;
+    context.shadowOffsetY=10;
+    context.shadowBlur=10;
+    context.fill();
+    var canvas1 = document.getElementById('canvas1');
+    var context1 = canvas1.getContext('2d');
+    canvas1.width = 800;
+    canvas1.height = 800;
+    context1.beginPath();
+    context1.rect(100,100,600,600);
+    pathRect(context1,200,200,400,200);
+    pathTriangle(context1,300,450,150,650,450,650);
+    context1.arc(550,550,100,0,Math.PI*2,true);
+    context1.closePath();
+    context1.fillStyle='#058';
+    context1.shadowColor='gray';
+    context1.shadowOffsetX=10;
+    context1.shadowOffsetY=10;
+    context1.shadowBlur=10;
+    context1.fill();
+    function pathRect(cxt,x,y,width,height){
+        cxt.moveTo(x,y);
+        cxt.lineTo(x,y+height);
+        cxt.lineTo(x+width,y+height);
+        cxt.lineTo(x+width,y);
+        cxt.lineTo(x,y);
+    }
+    function pathTriangle(cxt,x1,y1,x2,y2,x3,y3){
+        cxt.moveTo(x1,y1);
+        cxt.lineTo(x2,y2);
+        cxt.lineTo(x3,y3);
+        cxt.lineTo(x1,y1);
+    }
+</script>
+</body>
+</html>
