@@ -12,8 +12,8 @@
     </style>
 </head>
 <body>
-<canvas id="canvas">您的浏览器不支持canvas</canvas>
 <canvas id="canvas1">您的浏览器不支持canvas</canvas>
+<canvas id="canvas">您的浏览器不支持canvas</canvas>
 <script>
     //globalAlpha=1(default)
     //globalCompositeOperation='source-over'(default)新绘制的在上面
@@ -39,15 +39,14 @@
         var R=Math.floor(Math.random()*255);
         var G=Math.floor(Math.random()*255);
         var B=Math.floor(Math.random()*255);
+        var radius=Math.random()*50+20;
         context.fillStyle='rgb('+R+','+G+','+B+')';
         context.beginPath();
         context.arc(Math.random()*canvas.width,
                 Math.random()*canvas.height,
                 Math.random()*100,0,Math.PI*2)
         context.fill();
-
-        var radius=Math.random()*5+20;
-         aBall={
+        aBall={
             color:'rgb('+R+','+G+','+B+')',
             radius:radius,
             x:Math.random()*(canvas1.width-2*radius)+radius,
@@ -56,13 +55,14 @@
             vy:(Math.random())*Math.pow(-1,Math.floor(Math.random()*100))
         }
         balls[i]=aBall;
-        setInterval(
-                function(){
-                    draw(context1);
-                    update(canvas1.width,canvas1.height);
-                },50
-        );
+
     }
+    setInterval(
+            function(){
+                draw(context1);
+                update(canvas1.width,canvas1.height);
+            },50
+    );
     function draw(cxt){
         var canvas=cxt.canvas;
         cxt.clearRect(0,0,canvas.width,canvas.height);
