@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>星星闪烁</title>
+</head>
+<body>
+<div>
+    <canvas id="canvas">您的浏览器不支持canvas</canvas>
+</div>
+<script src="commonFunctions.js"></script>
+<script>
+    /*
+    * requestAnimFrame(function(){});
+    * setTimeout(function(){},time);
+    * setInterval(function(){},time);
+    * */
+    var can = document.getElementById('canvas');
+    var ctx = can.getContext('2d');
+
+    can.width = 800;
+    can.height = 600;
+
+    var girlPic = new Image();
+    girlPic.src="girl.jpg";
+    var starPic = new Image();
+    starPic.src="star.png";
+    var starNum = 100;
+    var stars=[];
+
+    var lastTime;
+    var deltaTime;
+    var switchy = false;
+    var life = 1;
+
+    var starObj = function(){
+        this.x;
+        this.y;
+        this.picNo;
+        this.timer;
+        this.xSpd;
+        this.ySpd;
+    }
+    starObj.prototype.init = function(){
+        this.x = Math.random()*600+100;//Math.random()包括0不包括1[0,1);
+        this.y = Math.random()*300+150;
+        this.picNo = Math.floor( Math.random() * 7 );
+        this.timer = 0;
+        this.xSpd = Math.random() * 3 - 1.5;
+        this.ySpd = Math.random() * 3 - 1.5;
+    }
+    starObj.prototype.update = function(){
+        this.x += this.xSpd * deltaTime * 0.004;
+        this.y += this.ySpd * deltaTime * 0.004;
+
+        if(this.x < 100 || this.x > 700){
+            this.init();
+            return;
+        }
+        if(this.y < 150 || this.y > 450){
+            this.init();
+            return;
+        }
+        this.timer += deltaTime;
+        if(this.timer > 50){
+            this.picNo += 1;
+            this.picNo %= 7;
+            this.timer = 0;
+        }
+    }
+    starObj.prototype.draw = function(){
+        //drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
+        ctx.save();
+        ctx.globalAlpha = life;
+        ctx.drawImage(starPic,this.picNo*7,0,7,7,this.x,this.y,7,7);
+        ctx.restore();
+    }
+    function aliveUpdate(){
+        if(switchy){
+            life += 0.03 * deltaTime * 0.05;
+            if(life > 1){life = 1;}
+        }else{
+            life -= 0.03 * deltaTime * 0.05;
+            if(life < 0){life = 0;}
+        }
+    }
+    function drawStars(){
+        for(var i = 0;i < starNum; i++){
+            stars[i].update();
+            stars[i].draw();
+        }
+    }
+    function drawBackground(){
+        ctx.fillStyle = '#393550';
+        ctx.fillRect(0,0,can.width,can.height);
+    }
+    function drawGirl(){
+        //drawImage(img,x,y,width,height);
+        ctx.drawImage(girlPic,100,150,600,300);
+    }
+    function gameloop(){
+        window.requestAnimFrame(gameloop);
+        var now = Date.now();
+        deltaTime = now - lastTime;
+        lastTime = now;
+        drawBackground();
+        drawGirl();
+        drawStars();
+        aliveUpdate();
+    }
+    function mousemove(e){
+        if(e.offsetX || e.layerX){
+            var px = e.offsetX == undefined ? e.layerX : e.offsetX;
+            var py = e.offsetY == undefined ? e.layerY : e.offsetY;
+            if(px > 100 && px < 700 && py > 150 && py < 450){
+                switchy = true;
+            }else{
+                switchy = false;
+            }
+        }
+    }
+    function init(){
+        document.addEventListener('mousemove',mousemove,false);
+        for(var i = 0; i < starNum; i++){
+            var obj = new starObj();
+            stars.push(obj);
+            stars[i].init();
+        }
+        lastTime = Date.now();
+        gameloop();
+    }
+    document.body.onload = init;
+</script>
+</body>
+</html>
