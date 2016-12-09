@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>椭圆</title>
+    <style>
+        canvas{
+            border:1px solid #aaa;
+            display:block;
+            margin:50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas1">您的浏览器不支持canvas</canvas>
+<canvas id="canvas">您的浏览器不支持canvas</canvas>
+<script>
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    canvas.width = 800;
+    canvas.height = 800;
+
+    if(context.ellipse){
+        context.beginPath();
+        context.ellipse(200,200,150,100,0,0,Math.PI*2);
+        context.stroke();
+    }else{
+        alert('no ellipse');
+    }
+
+    var canvas1 = document.getElementById('canvas1');
+    var context1 = canvas1.getContext('2d');
+    canvas1.width = 800;
+    canvas1.height = 800;
+    CanvasRenderingContext2D.prototype.fillStar=function(r,R,x,y,rot){
+        this.beginPath();
+        for(var i=0;i<5;i++){
+            this.lineTo(Math.cos((18+i*72-rot)/180*Math.PI)*R+x,
+                        -Math.sin((18+i*72-rot)/180*Math.PI)*R+y);
+            this.lineTo(Math.cos((54+i*72-rot)/180*Math.PI)*r+x,
+                        -Math.sin((54+i*72-rot)/180*Math.PI)*r+y);
+        }
+        this.closePath();
+        this.fill();
+    }
+    context1.fillStyle='#058';
+    context1.fillStar(150,300,400,400,0);
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
