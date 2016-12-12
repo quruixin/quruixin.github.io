@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css3三维动画效果</title>
+    <style>
+        #block1{
+            width:400px;
+            height:400px;
+            background-color: #69c;
+            margin:0 auto;
+            transition:background-color 3s;
+    -webkit-transition:background-color 3s;
+       -moz-transition:background-color 3s;
+         -o-transition:background-color 3s;
+        }
+        #block1:hover{
+            background-color: red;
+        }
+        #experiment{
+            -webkit-perspective: 800px;
+            -webkit-perspective-origin: 50% 50%;
+            -webkit-transform-style: -webkit-perspective-3d;
+        }
+        #block{
+            width:400px;
+            height:400px;
+            background-color: #69e;
+            margin:20px auto;
+            -webkit-transform: rotateX(45deg);
+            -webkit-transform: rotateY(45deg);
+            -webkit-transform: rotateZ(45deg);
+        }
+    </style>
+</head>
+<body>
+<div id="experiment">
+    <div id="block"></div>
+</div>
+<div id="block1"></div>
+<script>
+   /*
+    transition:<过渡属性名称><过渡时间><过渡模式>
+    transition:<过渡属性名称1><过渡时间1>
+    transition:<过渡属性名称2><过渡时间2>
+    transition:<过渡属性名称1><过渡时间1>,<过渡属性名称2><过渡时间2>,...
+
+    -webkit-transition:chrom,safari
+    -moz-transition:firefox
+    -o-transition:opera
+    eg:transition:color 1s;
+    eg:transition:height 1s;
+    transition-property:color;
+    transition-duration:1s;
+    过渡模式:ease(缓慢开始,缓慢结束,默认),linear(匀速),ease-in(缓慢开始),ease-out(缓慢结束),ease-in-out(缓慢开始,缓慢结束)
+
+    perspective:800;
+    perspective-origin:50% 50%;
+    translate
+        translateX(x px)
+        translateY(y px)
+        translateZ(z px)
+    rotate
+        rotateX(x deg)
+        rotateY(y deg)
+        rotateZ(z deg)
+    transform-style:-webkit-perserve-3d;
+    */
+</script>
+</body>
+</html>
