@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box1,#box2,#box3,#box4,#box5,#box6,#box7,#box8{position:relative;width:200px;height:60px;background:#ddd;}
+        #box1{border-left:5px solid red;}
+        #box2::after{content:'';width:5px;height:60px;position:absolute;top:0;left:0;background:red;}
+        #box3{box-shadow: -5px 0 0 0 red;}
+        #box4{box-shadow: inset 5px 0 0 0 red;}
+        #box5{-webkit-filter:drop-shadow(-5px 0 0 deeppink);}
+        #box6{background-image:linear-gradient(90deg,red 0px,red 5px,transparent 5px);}
+        #box7{height:50px;outline:5px solid red;}
+        #box7:after{position:absolute;wdith:5px;content:"";top:-5px;bottom:-5px;right:-5px;left:0;background:#ddd;}
+        #box8{width:205px;background:red;overflow-y:scroll;}
+        #box8::-webkit-scrollbar{width: 200px;background-color:#ddd;}
+    </style>
+</head>
+<body>
+<div id="box1"></div><br>
+<div id="box2"></div><br>
+<div id="box3"></div><br>
+<div id="box4"></div><br>
+<div id="box5"></div><br>
+<div id="box6"></div><br>
+<div id="box7"></div><br>
+<div id="box8"></div>
+</body>
+</html>

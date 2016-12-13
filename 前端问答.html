@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>前端知识问答</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        #html,#css,#javascript,#bowers{
+            border:1px solid #aaa;
+            padding:5px 10px;
+            font-size: 14px;
+        }
+        details>summary{
+            font-size: 15px;
+            font-weight: 700;
+        }
+        details>p{
+            margin-left:35px;
+        }
+        h1{
+            font-size: 18px;
+            font-weight: 900;
+        }
+    </style>
+</head>
+<body>
+<!--
+<details>
+    <summary></summary>
+    <p></p>
+</details>
+-->
+<h1>HTML</h1>
+<div id="html">
+    <details>
+        <summary>行内元素,块级元素,空元素</summary>
+        <p>css规定,每个元素都有display属性,确定该元素的类型,每个元素都有默认的display值,block为块级元素,inline为行内元素</p>
+        <p>行内元素:a,b,img,em strong,span,sub sup,form,input,select,strong</p>
+        <p>块级元素:div,table,p,h1-h6,iframe,dl ul ol,li,dl,dt,dd,for</p>
+        <p>常见的空元素:br,hr,img,input,link,meta</p>
+        <p>area,base,col,command,embed,keygen,param,source,track,wbr不同浏览器有差异</p>
+    </details>
+
+</div>
+<h1>CSS</h1>
+<div id="css">
+    <details>
+        <summary>css盒子模型,与低版本ie盒子模型有什么不同</summary>
+        <p>有两种:ie盒子模型,w3c盒子模型.盒模型:content,padding,margin,border.区别:ie的content部分把border和margin算了进去</p>
+    </details>
+    <details>
+        <summary>css有哪些选择符?哪些属性可以继承?</summary>
+        <p>1.id选择器(#id)2.类选择器(.class)3.标签选择器(div,h1,p)4.相邻选择器(h1+p)5.子选择器(ul>li)6.后代选择器(ul a)7.通配符选择器(*)
+            8.属性选择器(a[rel='external']9.伪类选择器(a:hover,li:nth-child)</p>
+        <p>可继承的:font-size,font-family,color,ul,li,dl,dt,dd</p>
+        <p>不可继承的:borderpadding margin width height</p>
+    </details>
+    <details>
+        <summary>css hack有哪些</summary>
+        <p><b>前后缀法:</b><br>
+            <span>_和-前缀(IE6以下支持);</span><br>
+            <span>*前缀(IE7以下);</span><br>
+            <span>\9后缀(所有IE支持);</span><br>
+            <span>\0后缀(IE8-IE10支持);</span><br>
+            <span>\9\0后缀(IE9-IE10支持);</span><br>
+        </p>
+        <p><b>IE 条件注释语句示例:</b>
+            <br> <span>&lt;!--[if it IE 7]&gt;&lt;![endif]--&gt;</span><span>(IE7以下);</span>
+            <br> <span>&lt;!--[if ite IE 7]&gt;&lt;![endif]--&gt;</span><span>(IE7及以下);</span>
+            <br> <span>&lt;!--[if gt IE 7]&gt;&lt;![endif]--&gt;</span><span>(IE7以上);</span>
+            <br> <span>&lt;!--[if gte IE 7]&gt;&lt;![endif]--&gt;</span><span>(IE7及以上);</span>
+            <br> <span>&lt;!--[if !IE 7]&gt;&lt;![endif]--&gt;</span><span>(非IE7);</span>
+            <br> <span>&lt;!--[if !IE]&gt;&lt;![endif]--&gt;</span><span>(非IE浏览器);</span>
+        </p>
+    </details>
+    <details>
+        <summary>css优先级怎么计算</summary>
+        <p>!important&gt;行内样式&gt;id选择器&gt;类选择器&gt;标签选择器&gt;通配符&gt;继承&gt;浏览器默认</p>
+        <p>当优先级一样的,后定义的覆盖先定义的</p>
+        <p>如果!important相冲突的,比较其他的优先级顺序</p>
+    </details>
+    <details>
+        <summary>css3新增伪类.</summary>
+        <p>p:last-of-type(选中父元素中的最后一个p元素 )</p>
+        <p>p:last-child(选中父元素中的最后一个元素并且此元素为p)</p>
+        <p>p:first-of-type(选中父元素中的第一个p元素)</p>
+        <p>p:first-child(选中父元素中第一个子元素,并且此元素为p)</p>
+        <p>p:only-of-type(选中父元素唯一的一个p元素)</p>
+        <p>p:only-child(选中父元素中唯一的一个p元素,没有其他元素)</p>
+        <p>p:nth-child(n)(选中父元素中第n个元素,并且此元素必须刚好为p)</p>
+        <p>p:nth-last-child(n)(选中父元素倒序的第n个元素,并且此元素必须刚好为p)</p>
+        <p>p:nth-of-type(n)(选中其父元素中的第n个p元素)</p>
+        <p>p:nth-last-of-type(n)(选中父元素倒序的第n个p元素 )</p>
+    </details>
+    <details>
+        <summary>png,jpg,gif这些图片格式的优缺点.</summary>
+        <p>png(优点:无损压缩,支持透明,半透明,不透明;缺点:同样大小会比jpg格式的图片更大.)</p>
+        <p>jpg(优点:体积比png小,打开速度更快.颜色艳丽;缺点:jpg为有损压缩,不适于多次编辑保存.不支持透明.)</p>
+        <p>gif(优点:支持动态图像;缺点:颜色无法平滑过渡,支持颜色有限,不支持全透明.)</p>
+        <p>总结:单色和动画用gif,需要透明用png,大的展示图用jpg.</p>
+    </details>
+    <details>
+        <summary>rem,em,px有什么区别</summary>
+        <p>px是根据屏幕分辨率来定义的长度单位.(IE内核的浏览器将不能调整使用px作为单位的字体大小.)</p>
+        <p>em继承父级的font-size大小,是一种相对单位;em的值是不固定的;最原始的参照点是body定义的font-size;em的计算相对比较复杂.</p>
+        <p>rem是css3新增的相对单位,所有的rem只相对html设置的字体大小.</p>
+    </details>
+</div>
+<h1>JavaScript</h1>
+<div id="javascript">
+    <details>
+        <summary>js基本数据类型</summary>
+        <p>Undefined,Null,Boolean,Number,String(ECMAScript2015新增Symbol[创建后独一无二不可变的数据类型])</p>
+        <summary>js引用类型</summary>
+        <p>除基本类型之外的都是引用类型.包括对象,数组,函数.</p>
+        <p>基本类型存储在栈区,引用类型存储在堆区,堆区和栈区的不同在于,在栈区变量的操作独立的,而在堆区,变量是一种引用和指向关系,复制后的变量不会生成副本,只会定义指向变量值得指针,因此多个指针操作的其实是同一个堆的值.</p>
+    </details>
+    <details>
+        <summary>null,undefined区别</summary>
+        <p>null表示没有值;undefined表示应该有值,却没有被定义;typeof能准确判断undefined ,不能判断null</p>
+    </details>
+    <details>
+        <summary>js内置对象</summary>
+        <p>Object是js中所有对象的父对象.数据封装类对象:Object,Array,Boolean,Number,String.其他对象:Function,Arguments,Math,Date,RegExp,Error</p>
+    </details>
+    <details>
+        <summary>cookie怎么操作</summary>
+        <pre>
+            window.onload = function() {
+
+           function setCookie(name, value, fate) {
+               var Day = fate ? fate : 0;
+               var exp = new Date();
+               exp.setTime(exp.getTime() + Day * 24 * 60 * 60 * 1000);
+               document.cookie = name + "=" + escape(value) + "; expires=" + exp.toUTCStrin() + "; path=/";
+           }
+
+           function getCookie(name) {
+               var strCookie = document.cookie;
+               var arrCookie = strCookie.split("; ")
+               for (var i = 0; i < arrCookie.length; i++) {
+                   var arr = arrCookie[i].split("=")
+                   if (name == arr[0]) {
+                       return arr[1];
+                   }
+               }
+           }
+
+           function delCookie(name) {
+               var exp = new Date();
+               exp.setTime(date.getTime - 1000);
+               document.cookie = name + "=null; expires=" + exp.toUTCString()
+           }
+       }
+        </pre>
+    </details>
+    <details>
+        <summary>arguments对象的限制</summary>
+        <p>1. 不允许对arguments赋值</p>
+        <p>2. arguments不再追踪参数的变化 即: arguments将忽略参数在函数内部的更改.</p>
+        <p>3. 禁止使用arguments.callee ; 无法再匿名函数内部调用自身.</p>
+    </details>
+</div>
+<h1>JavaScript</h1>
+<div id="bowers">
+    <details>
+        <summary>浏览器数据存储有哪些方式</summary>
+        <p>cookie会随着每次http请求头信息一起发送给服务端,浪费了网络带宽.cookie最多存放4K左右的数据.cookie会造成数据污染,修改一个页面的cookie,另一个页面的cookie参数也会发生变化</p>
+        <p>storage本地存储,sessionstorage会话级存储,会在页面关闭后被清空,localstorage永久存储,没有失效时间,除非手动删除</p>
+        <p>flash ShareObject,默认存储100K的数据,可以自行设置,需要安装客户端</p>
+        <p>google Gear,google开发的本地存储技术,需要安装组件来使用</p>
+        <p>UserData,IE的开发的本地存储方案,可以存储64k</p>
+    </details>
+</div>
+</body>
+</html>

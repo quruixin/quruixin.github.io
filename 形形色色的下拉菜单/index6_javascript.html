@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .top-nav{font-size:16px;font-weight: bold;list-style:none;overflow:auto;}/*overflow:auto;可以清除浮动*/
+        .top-nav li{float:left;margin-right:1px;}
+        .top-nav li a{line-height:34px;text-decoration: none;background:#3f240e;color:#fff;display:block;width:120px;text-align: center;}
+        .top-nav li ul,.top-nav li ul li ul{display:none;list-style:none;width:120px;}
+        .top-nav li ul{padding:0;position: relative;height:0;overflow:hidden;}
+        .top-nav li a:hover{background: url(images/slide-pannel_14.png) 0 0 repeat-x;}
+        .note{color:#3f240e;display:block;background: url(images/slide-pannel_14.png) 0 0 repeat-x;}
+        .corner{display:block;background:url(images/bird.png) 51px 0 no-repeat;height:11px;}
+    </style>
+    <!--<script src="jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.top-nav li').mousemove(function(){
+                $(this).find('ul').slideDown('1000');
+            });
+            $('.top-nav li').mouseleave(function(){
+                $(this).find('ul').slideUp('slow');
+            });
+        });
+    </script>-->
+    <script>
+        window.onload=function(){
+            var Lis=document.getElementsByTagName('li');
+            for(var i=0;i<Lis.length;i++){
+                Lis[i].onmouseover=function(){
+                    var u=this.getElementsByTagName('ul')[0];
+                    if(u!=undefined){
+                        u.style.display='block';
+                        ChangeH(u.id,1);
+                    };
+                }
+                Lis[i].onmouseleave=function(){
+                    var u=this.getElementsByTagName('ul')[0];
+                    if(u!=undefined){
+                        u.style.display='block';
+                        ChangeH(u.id,-1);
+                    }
+                }
+            }
+        }
+       /* function AddH(id){
+            var ulList=document.getElementById(id);
+            var h=ulList.offsetHeight;
+            h+=1;
+            if(h<=142){
+                ulList.style.height=h+'px';
+                setTimeout("AddH('"+id+"')",10);
+            }else{
+                return;
+            }
+        }
+        function SubH(id){
+            var ulList=document.getElementById(id);
+            var h=ulList.offsetHeight;
+            h-=1;
+            if(h>0){
+                ulList.style.height=h+'px';
+                setTimeout("SubH('"+id+"')",10);
+            }else{
+                ulList.style.display='none';
+                return;
+            }
+        }*/
+        function ChangeH(id,count){
+            var ulList=document.getElementById(id);
+            var h=ulList.offsetHeight;
+            h+=count;
+            if(count>0){
+                if(h<=142){
+                    ulList.style.height=h+'px';
+                    setTimeout("ChangeH('"+id+"',1)",10);
+                }else{
+                    return;
+                }
+            }else{
+                if(h>0){
+                    ulList.style.height=h+'px';
+                    setTimeout("ChangeH('"+id+"',-1)",10);
+                }else{
+                    ulList.style.display='none';
+                    return;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<ul class="top-nav">
+    <li><a href="#"><span class="note">慕课网</span></a></li>
+    <li>
+        <a href="#">首页 </a>
+        <ul id="mnuUL">
+            <span class="corner"></span>
+            <li><a href="#">javascript</a></li>
+            <li><a href="#">css3</a></li>
+            <li><a href="#">html5</a></li>
+        </ul>
+    </li>
+    <li><a href="#">课程大厅</a>
+        <ul id="mnuUL1">
+            <span class="corner"></span>
+            <li><a href="#">javascript</a></li>
+            <li><a href="#">css3</a></li>
+            <li><a href="#">html5</a></li>
+        </ul>
+    </li>
+    <li><a href="#">学习中心</a></li>
+    <li><a href="#">关于我们</a></li>
+</ul>
+</body>
+</html>

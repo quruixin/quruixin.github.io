@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script>
+        //rem转换
+        function rem() {
+            var w = Math.min(document.documentElement.getBoundingClientRect().width, 500);
+            document.getElementsByTagName('html')[0].style.fontSize = w * 100 / 375 + 'px';
+        }
+        rem();
+        window.onresize = function(){rem();};
+    </script>
+    <title>亲密指数大揭秘</title>
+    <link href="../css/index.css" rel="stylesheet" type="text/css">
+    <script src="../js/jquery-1.12.4.min.js"></script>
+    <!--轮播-->
+    <script src="../js/slick.js"></script>
+
+</head>
+<body>
+
+<div class="container buy">
+    <a class="logo" href="javascript:;"></a>
+
+    <!--首页-->
+    <div class="index-page">
+        <!--首页顶部和圣诞老人-->
+        <div class="index-top">
+            <img class="top-img" src="../images/index-top.png" />
+            <div class="santa"></div>
+            <div class="santa santa2"></div>
+        </div>
+
+        <!--首页文字-->
+        <div class="index-text-con">
+            <img class="text1" src="../images/index-text1.png" />
+            <img class="text2" src="../images/index-text2.png" />
+        </div>
+
+        <!--如果是自己分享出去，好友打开的，那么显示自己的结果-->
+        <div class="mine-result">
+            <img src="" />
+        </div>
+
+        <!--首页按钮-->
+        <div class="index-btn-con">
+            <a class="index-btn-intro" href="javascript:;"></a>
+            <a class="index-btn-play" href="javascript:;"></a>
+        </div>
+
+        <!--规则-->
+        <div class="rule-con">
+            <div class="img-com">
+                <img class="rule-text" src="../images/rele.png">
+                <a class="rule-close" href="javascript:;"></a>
+            </div>
+        </div>
+    </div>
+
+    <!--四个场景-->
+    <div class="slideBox">
+        <div class="slick">
+            <div class="one-buy">
+                <img class="bg-img" src="../images/buy.png" />
+                <div class="bg-face"></div>
+                <div class="photo-con"></div>
+                <div class="photo-con2"></div>
+            </div>
+            <div class="two-korea">
+                <img class="bg-img" src="../images/han.png" />
+                <div class="bg-face"></div>
+                <div class="photo-con"></div>
+                <div class="photo-con2"></div>
+            </div>
+            <div class="three-fitness">
+                <img class="bg-img" src="../images/fitness.png" />
+                <div class="bg-face"></div>
+                <div class="photo-con"></div>
+                <div class="photo-con2"></div>
+            </div>
+
+            <div class="four-snowman">
+                <img class="bg-img" src="../images/snowman.png" />
+                <div class="bg-face"></div>
+                <div class="photo-con"></div>
+                <div class="photo-con2"></div>
+            </div>
+        </div>
+
+        <!--四个的公共 S-->
+        <!--铃铛-->
+        <div class="bell"></div>
+        <div class="bell bell2"></div>
+        <!--按钮-->
+        <div class="scene-btn-con">
+            <div class="santa"></div>
+            <a class="reveal" href="javascript:;"></a>
+            <div class="santa santa2"></div>
+        </div>
+        <!--四个的公共 E-->
+    </div>
+
+    <!--上传照片按钮-->
+    <div class="upload-con">
+        <div class="upload-girl btn-con">
+            <div class="camera"></div>
+            <button class="make-btn" id="uploadBtn"></button>
+            <input class="upload-input" id="uploadInput" type="file" capture="camera" name="cameraInput" accept="image/*">
+            <img id="load_img" class="photo-img" src="" alt="">
+        </div>
+        <div class="upload-boy btn-con">
+            <div class="camera"></div>
+            <button class="make-btn" id="uploadBtn2"></button>
+            <input class="upload-input" id="uploadInput2" type="file" capture="camera" name="cameraInput" accept="image/*">
+            <img id="load_img2" class="photo-img" src="" alt="">
+        </div>
+    </div>
+
+    <!--结果区域-->
+    <div class="result-con">
+        <img id="resultImg" class="result-img" src="" />
+        <img class="result-con-bg" src="" />
+        <div class="result-con-color"></div>
+        <div class="boy-con">
+            <img id="boy" src="" />
+        </div>
+        <div class="girl-con">
+            <img id="girl"  src="" />
+        </div>
+
+        <div class="text-con">
+            <p class="result-name"></p>
+            <p class="result-score"><span></span>%</p>
+            <p class="result-text"></p>
+        </div>
+
+        <!--三个按钮-->
+        <div class="result-btn-con">
+            <button class="onemore"></button>
+            <a id="downLink"></a>
+            <button class="downimg" id="downloadBtn"></button>
+            <button class="sharebtn"></button>
+        </div>
+
+        <!--二维码-->
+        <div class="result-code-con">
+            <div class="santa3"></div>
+            <img src="../images/qr-code.png" class="qr-code" />
+            <div class="text"></div>
+        </div>
+    </div>
+
+    <!--share箭头-->
+    <div class="share-arrow">
+        <img src="../images/cele-share.png"/>
+        <p>点击右上角，分享给小伙伴们吧！</p>
+    </div>
+    <!--保存照片提示-->
+    <div class="download-prompt">
+        <p>请长摁图片，选择 - - 保存到手机</p>
+    </div>
+
+    <!--提示窗口-->
+    <div class="popup-con">
+        <div class="popup-main">
+            <p class="alertMessage"></p>
+        </div>
+    </div>
+</div>
+
+<!--接口调用时加载-->
+<div class="ui-loading-block" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+    <div class="ui-loading-cnt">
+        <i class="ui-loading-bright"></i>
+        <p>正在加载…</p>
+    </div>
+</div>
+
+
+
+<!--上传照片插件-->
+<script src="../js/ext-1.0.1.js"></script>
+<!--上传照片js-->
+<script src="../js/loadpic.js"></script>
+<!--保存某一个div内的图片-->
+<script src="../js/html2canvas.js"></script>
+<!--传图片到服务器-->
+<script src="../js/ajaxfileupload.js"></script>
+<!--主要js-->
+<script src="../js/christmas.js"></script>
+<script>
+    // 轮播
+    $('.slick').slick({
+        speed: 500,
+        touchMove: false //禁止，因为如果允许就没办动态设置每个页面不同地方。
+    });
+
+    $('#downloadBtn').click(function(){
+        console.log('请稍等，页面加载中...')
+    })
+
+
+    // 上传图片
+    uploadPageReady();
+
+    //出错重新选择照片
+    reUploadImg();
+    function reUploadImg(){
+        var loadImg = $("#load_img"),loadImg2 = $("#load_img2");
+        loadImg.src = '';
+        loadImg2.src = '';
+
+        $(".scan-mask").addClass("none");
+        $(".scan-green").addClass("none");
+        $(".scan-green").removeClass("am-scandown");
+        $("#test_state").html("把你漂亮的眼睛、鼻子和嘴巴都露出来哦！");
+    }
+</script>
+</body>
+</html>

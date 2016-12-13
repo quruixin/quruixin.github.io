@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            margin-right:50px;
+            width: 200px;
+            height: 200px;float:left;
+            background-image: url('http://images2015.cnblogs.com/blog/608782/201609/608782-20160926101029078-1479229145.jpg');
+        }
+        .below {-webkit-box-reflect: below;}
+        .above {-webkit-box-reflect: above;margin-top:200px;}
+        .right {-webkit-box-reflect: right;}
+        .left {-webkit-box-reflect: left;margin-top:200px;}
+        .rot{position:relative;}
+        .rot:after{content: "";background-image: inherit;position: absolute;top: 100%;left: 0;right: 0;bottom: -100%;transform: rotateX(180deg);}
+        .rot:before{content: "";position: absolute;width: 200px;height: 200px;bottom: -200px;background: linear-gradient(0deg, rgba(255, 255, 255, 1)0%, rgba(255, 255, 255, 0)100%); z-index: 2;}
+    </style>
+</head>
+<body>
+<div class='below'>below</div><br>
+<div class='above'>above</div><br>
+<div class='right'>right</div><br>
+<div class='left'>left</div>
+<div class="rot">rot</div>
+</body>
+</html>

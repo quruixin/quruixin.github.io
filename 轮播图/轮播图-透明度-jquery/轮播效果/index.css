@@ -1,0 +1,18 @@
+/*焦点图*/
+.slide-box{width:100%;min-width:1200px;height:820px;position:relative;}
+.slide-box .bd{position: relative;overflow: hidden;height: 100%;z-index: 0}
+.slide-box .bd ul {position: relative;width: 100%;height: 100%;}
+.slide-box .bd ul li {width: 100%;height: 100%;background: #f2f2f2;position: absolute;left: 0;top: 0;zoom: 1;vertical-align: middle;opacity: 0;z-index: 0;}
+.slide-box .bd ul li.show {opacity: 1;z-index: 1;}
+.slide-box .bd ul li a {display: block;width: 100%;height: 100%;text-align: center;position: relative;}
+.slide-box .bd ul li a img {width: 1920px;height: 100%;position: absolute;left: 50%;top: 0;margin-left: -960px;}
+.slide-box .hd {margin-right: -595px;position: absolute;right: 50%;bottom: 50px;z-index: 3;overflow: hidden;}
+.slide-box .hd ul li{display: inline-block;cursor: pointer;width: 35px;height: 6px; border-radius: 2px; overflow: hidden;background-color: #fff;margin-right: 5px;}
+.slide-box .hd ul li.on {background-color: #e60012;}
+.slide-box span.prev, .slide-box span.next {
+    display: block; cursor: pointer;
+}
+.slide-box span.prev, .slide-box span.next {
+    display: block; cursor: pointer;
+}
+

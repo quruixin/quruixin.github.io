@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="style.css" rel="stylesheet">
+    <style>
+       .toolbar{
+           position:fixed;
+           left:50%;
+           bottom:5px;
+           margin-left:-26px;
+       }
+       .toolbar-item{
+            position:relative;
+           display: block;
+           width:52px;
+           height:52px;
+           margin-top:1px;
+       }
+       .toolbar-item:hover .toolbar-icon{
+           top:52px;
+       }
+       .toolbar-item:hover .toolbar-text{
+           top:0;
+       }
+       .toolbar-item:hover .toolbar-layer{
+           opacity: 1;
+           transform: scale(1);
+       }
+       .toolbar-btn{
+            position:absolute;
+           left:0;
+           top:0;
+           width:52px;
+           height:52px;
+           overflow: hidden;
+       }
+        .toolbar-icon{
+            position: absolute;
+            left:0;
+            top:0;
+            width:52px;
+            height:52px;
+            background-color: #d0d6d9;
+            font-size: 30px;
+            color:#fff;
+            text-align: center;
+            line-height: 52px;
+            transition: top 1s;
+        }
+        .toolbar-text{
+            position: absolute;
+            left:0;
+            top:52px;
+            width:52px;
+            height:52px;
+            background-color: #98a1a6;
+            font-size: 12px;
+            color:#fff;
+            text-align: center;
+            line-height: 1.2;
+            padding-top:12px;
+            transition: top 1s;
+        }
+        .toolbar-layer{
+            position:absolute;
+            right:46px;
+            bottom:-10px;
+            width:172px;
+            background-image: url(img/toolbar_img.png);
+            background-repeat: no-repeat;
+            opacity: 0;
+            transform-origin: 95% 95%;
+            transform: scale(0.01);
+            transition: all linear 1s;
+        }
+        .toolbar-layer-weixin{
+            height:212px;
+            background-position: 0 0;
+        }
+        .toolbar-layer-app{
+            height:194px;
+            background-position: 0 -222px;
+        }
+    </style>
+</head>
+<body>
+<div class="toolbar">
+    <a href="#" class="toolbar-item">
+        <span class="toolbar-btn">
+            <i class="toolbar-icon icon-wechat"></i>
+            <span class="toolbar-text">公众<br>账号</span>
+        </span>
+        <span class="toolbar-layer toolbar-layer-weixin"></span>
+    </a>
+    <a href="#" class="toolbar-item toolbar-item-feedback">
+        <span class="toolbar-btn">
+            <i class="toolbar-icon icon-shift"></i>
+            <span class="toolbar-text">意见<br>反馈</span>
+        </span>
+    </a>
+    <a href="#" class="toolbar-item toolbar-item-app">
+        <span class="toolbar-btn">
+            <i class="toolbar-icon icon-mobile"></i>
+            <span class="toolbar-text">APP<br>下载</span>
+        </span>
+        <span class="toolbar-layer toolbar-layer-app"></span>
+    </a>
+    <a href="#" class="toolbar-item toolbar-item-top">
+        <span class="toolbar-btn">
+            <i class="toolbar-icon icon-envelop"></i>
+            <span class="toolbar-text">返回<br>顶部</span>
+        </span>
+    </a>
+</div>
+
+</body>
+</html>
