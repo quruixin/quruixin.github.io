@@ -13,7 +13,7 @@
             padding: 0;
             margin: 0;
         }
-        .circle {
+      .circle {
             width: 100px;
             height: 100px;
             position: absolute;
@@ -24,74 +24,74 @@
             margin-left: -50px;
         }
 
-        .left,.right{
-            width:50px;
-            height:100px;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            background-color: #000;
-            transition: all .3s;
-            -webkit-transition: all .3s;
-            -moz-transition: all .3s;
-            -ms-transition: all .3s;
-        }
-        .pie_left, .pie_right{
-            width:50px;
-            height:100px;
-            position: absolute;
-            border-radius: 50%;
-            top: 0px;
-            overflow: hidden;
-        }
+         .left,.right{
+             width:50px;
+             height:100px;
+             position: absolute;
+             top: 0px;
+             left: 0px;
+             background-color: #000;
+             transition: all .3s;
+             -webkit-transition: all .3s;
+             -moz-transition: all .3s;
+             -ms-transition: all .3s;
+         }
+           .pie_left, .pie_right{
+             width:50px;
+             height:100px;
+             position: absolute;
+             border-radius: 50%;
+             top: 0px;
+             overflow: hidden;
+         }
         .pie_left{
-            left:0;
-        }
-        .pie_right{
-            right:0;
-        }
-        .pie_right,.right {
-            border-radius: 0 100px 100px 0;
-            transform-origin: left 50%;
-            -webkit-transform-origin: left 50%;
-            -moz-transform-origin: left 50%;
-            -ms-transform-origin: left 50%;
-        }
-        .pie_left , .left{
-            border-radius: 100px 0 0 100px;
-            transform-origin: right 50%;
-            -webkit-transform-origin: right 50%;
-            -moz-transform-origin: right 50%;
-            -ms-transform-origin: right 50%;
-        }
-        .point{
-            width: 100px;
-            height: 100px;
-            position: absolute;
-            border-radius: 50%;
-            top: 0;
-            left: 0;
-            transition: all .3s;
-            -webkit-transition: all .3s;
-            -moz-transition: all .3s;
-            -ms-transition: all .3s;
-        }
-        .point:before,.point:after{
-            content: '';
-            display: block;
-            width: 4px;
-            height: 4px;
-            position: absolute;
-            border-radius: 4px;
-            top: -1px;
-            left: 50%;
-            margin-left: -2px;
-            background-color:#eb0507;
-            z-index: 5;
-            -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
-            -moz-animation: neon1 1.5s ease-in-out infinite alternate;
-            animation: neon1 1.5s ease-in-out infinite alternate;
-        }
+             left:0;
+         }
+         .pie_right{
+             right:0;
+         }
+         .pie_right,.right {
+             border-radius: 0 100px 100px 0;
+             transform-origin: left 50%;
+             -webkit-transform-origin: left 50%;
+             -moz-transform-origin: left 50%;
+             -ms-transform-origin: left 50%;
+         }
+         .pie_left , .left{
+             border-radius: 100px 0 0 100px;
+             transform-origin: right 50%;
+             -webkit-transform-origin: right 50%;
+             -moz-transform-origin: right 50%;
+             -ms-transform-origin: right 50%;
+         }
+         .point{
+             width: 100px;
+             height: 100px;
+             position: absolute;
+             border-radius: 50%;
+             top: 0;
+             left: 0;
+             transition: all .3s;
+             -webkit-transition: all .3s;
+             -moz-transition: all .3s;
+             -ms-transition: all .3s;
+         }
+         .point:before,.point:after{
+             content: '';
+             display: block;
+             width: 4px;
+             height: 4px;
+             position: absolute;
+             border-radius: 4px;
+             top: -1px;
+             left: 50%;
+             margin-left: -2px;
+             background-color:#eb0507;
+             z-index: 5;
+             -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
+             -moz-animation: neon1 1.5s ease-in-out infinite alternate;
+             animation: neon1 1.5s ease-in-out infinite alternate;
+         }
 
         /*
         *当top和left取值为auto时，相当于0

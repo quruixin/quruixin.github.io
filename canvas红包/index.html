@@ -21,15 +21,91 @@
        -moz-filter:blur(5px);
         -ms-filter:blur(5px);
          -o-filter:blur(5px);
+            position: absolute;
+            left:0px;
+            top:0px;
+            z-index: 0;
+        }
+        #canvas{
+          display: block;
+            margin: 0 auto;
+            position: absolute;
+            left:0px;
+            top:0px;
+            z-index: 1;
+        }
+        .button{
+            display: block;
+            position: absolute;
+            z-index: 2;
+            width: 100px;
+            height:30px;
+            color:#fff;
+            text-decoration: none;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 5px;
+        }
+        #reset-button{
+            left:400px;
+            bottom:20px;
+            background-color: #058;
+        }
+        #reset-button:hover{
+            background-color: #047;
+        }
+        #show-button{
+            left:200px;
+            bottom:20px;
+            background-color: #085;
+        }
+        #show-button:hover{
+            background-color: #074;
         }
     </style>
 </head>
 <body>
 <div id="blur-div">
     <img id="blur-image" src="../canvas玩转图像处理/psb.jpg" alt="">
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas">您的浏览器不支持canvas</canvas>
+    <a href="javascript:reset()" class="button" id="reset-button">RESET</a>
+    <a href="javascript:show()" class="button" id="show-button">SHOW</a>
 </div>
 <script>
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    canvas.width = 800;
+    canvas.height = 600;
+    var image = new Image();
+    var clippingRegion = {x:400,y:200,r:50};
+
+    image.src='psb.jpg';
+    image.onload = function(e){
+        initCanvas();
+    }
+    function initCanvas(){
+        clippingRegion = {x:Math.random()*800+50,y:Math.random()*600+50,r:50};
+        draw(image,clippingRegion);
+    }
+    function draw(image,clippingRegion){
+        context.clearRect(0,0,canvas.width,canvas.height);
+        context.save();
+        //setClippingRegion(clippingRegion);
+        context.drawImage(image,0,0);
+        context.restore();
+    }
+    function setClippingRegion(clippingRegion){
+        context.beginPath();
+        context.arc(clippingRegion.x,clippingRegion.y,clippingRegion.r,0,Math.PI*2,false);
+        context.clip();
+    }
+    function reset(){
+        initCanvas();
+    }
+    function show(){
+        clippingRegion.r = 1000;
+        draw(image,clippingRegion);
+    }
 /*
 *filter:
 * grayscale(0-1);
