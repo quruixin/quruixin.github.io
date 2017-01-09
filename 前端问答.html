@@ -4,7 +4,7 @@
     <title>前端知识问答</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style>
-        #html,#css,#javascript,#bowers{
+        #html,#css,#javascript,#bowers,#code{
             border:1px solid #aaa;
             padding:5px 10px;
             font-size: 14px;
@@ -171,5 +171,73 @@
         <p>UserData,IE的开发的本地存储方案,可以存储64k</p>
     </details>
 </div>
+<h1>程序</h1>
+<div id="code">
+    <details>
+        <summary>for(var i=0;i<10;i++){}alert(i);</summary>
+        <p>i的值是10</p>
+    </details>
+    <details>
+        <summary>alert(1&&2);</summary>
+        <p>2</p>
+    </details>
+    <details>
+        <summary>var a={n:1};var b=a;a.x=a={n:2};console.log(a.x);console.log(b.x);</summary>
+        <p>a.x(undefined),b.x(Object{n:2})</p>
+    </details>
+    <details>
+        <summary>var a=1;function b(){var a=2;function c(){console.log(a);return c;};b()();</summary>
+        <p>2</p>
+    </details>
+    <details>
+        <summary>var obj={a:1,b:function(){console.log(this.a);}};var a=2;var objb=obj.b;obj.b();objb();obj.b.call(window);</summary>
+        <p>1,2,2</p>
+    </details>
+</div>
+<script>
+    /*for(var i=0;i<10;i++){}
+    console.log(i);*/
+    /*var a={n:1};
+    var b=a;
+    a.x=a={n:2};
+    console.log(a.x);
+    console.log(b.x);*/
+    /*console.log(1&&2);//2
+    console.log(0||1);//1
+    console.log(2||1);//2
+    console.log('a'||1);//a
+    console.log(''||1);//1
+    console.log('a'||0);//a
+    console.log('a'||'b');//a
+    console.log(''||0);//0
+    console.log(0||'');//''
+    console.log(''&&1);//''
+    console.log(''&&0);//''
+    console.log('a'&&1);//1
+    console.log('a'&&0);//0
+    console.log('a'&&'');//''
+    console.log(0&&'a');//0
+    console.log(0&&'');//0*/
+    /*var a=1;
+    function d(){
+        var a=2;
+        function c(){
+            console.log("a"+a);
+        };
+        return c;
+    };
+    d()();*/
+    var obj={
+        a:1,
+        b:function(){
+            console.log(this.a);
+        }
+    };
+    var a=2;
+    var objb=obj.b;
+    obj.b();
+    objb();
+    obj.b.call(window);
+</script>
 </body>
 </html>

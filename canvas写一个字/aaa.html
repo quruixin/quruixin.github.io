@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" width="400" height="400" style="border:1px solid #aaa;"></canvas>
+<script>
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+
+   // context.strokeStyle = 'red';
+
+   /* context.fillStyle = 'blue';
+    context.fillRect(10,10,50,50);
+
+    context.strokeStyle='red';
+    context.strokeRect(30,30,50,50);
+
+    context.clearRect(32,32,25,25);*/
+
+    /*context.beginPath();
+
+    context.arc(100,100,99,0,2*Math.PI,false);
+
+    context.moveTo(194,100);
+    context.arc(100,100,94,0,2*Math.PI,false);
+
+    context.moveTo(100,100);
+    context.lineTo(100,15);
+
+    context.moveTo(100,100);
+    context.lineTo(35,100);
+
+    context.stroke();
+
+    context.font = 'bold 14px Arial';
+    context.textAlign = 'center';
+    context.textBaseline = 'middle';
+    context.fillText('12',100,20);
+
+    context.textAlign = 'start';
+    context.fillText('12',100,40);
+
+    context.textAlign = 'end';
+    context.fillText('12',100,60);
+
+    if(context.isPointInPath(50,50)){
+        console.log('yes');
+    }*/
+
+    var fontSize = 140;
+    context.font = fontSize + 'px Arial';
+    while(context.measureText('Hello canvas!').width>140){
+        fontSize--;
+        context.font = fontSize + 'px Arial';
+    }
+    context.fillText("Hello canvas!",10,40);
+    context.fillText("Font size is" + fontSize + 'px',10,80);
+
+</script>
+</body>
+</html>

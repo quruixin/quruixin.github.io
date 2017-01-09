@@ -236,6 +236,11 @@
 
         context.restore();
     }
+
+    var imgURI = canvas.toDataURL('image/png');
+    var image = document.createElement('img');
+    image.src = imgURI;
+    document.body.appendChild(image);
 </script>
 </body>
 </html>
