@@ -4,31 +4,28 @@
     <title>前端知识问答</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style>
-        #html,#css,#javascript,#bowers,#code{
-            border:1px solid #aaa;
-            padding:5px 10px;
+        #html, #css, #javascript, #bowers, #code, #page {
+            border: 1px solid #aaa;
+            padding: 5px 10px;
             font-size: 14px;
         }
-        details>summary{
+
+        details > summary {
             font-size: 15px;
             font-weight: 700;
         }
-        details>p{
-            margin-left:35px;
+
+        details > p {
+            margin-left: 35px;
         }
-        h1{
+
+        h1 {
             font-size: 18px;
             font-weight: 900;
         }
     </style>
 </head>
 <body>
-<!--
-<details>
-    <summary></summary>
-    <p></p>
-</details>
--->
 <h1>HTML</h1>
 <div id="html">
     <details>
@@ -39,7 +36,28 @@
         <p>常见的空元素:br,hr,img,input,link,meta</p>
         <p>area,base,col,command,embed,keygen,param,source,track,wbr不同浏览器有差异</p>
     </details>
-
+    <details>
+        <summary>&lt;img&gt;的title和alt有什么区别</summary>
+        <p>title是global attributes之一,用于为元素提供附加的advisory information(咨询相关信息).通常当鼠标滑动到元素上的时候显示.</p>
+        <p>alt是img的特有属性,是图片内容的等价描述,用于图片无法加载时显示,读屏器阅读图片.可提高图片可访问性,除了纯装饰图片外都必须设置有意义的值,搜索引擎会重点分析</p>
+    </details>
+    <details>
+        <summary>link与@import的区别</summary>
+        <p>1.link的html方式,@import是css方式</p>
+        <p>2.link最大限度支持并行下载,@import过多嵌套导致串行下载,出现fouc</p>
+        <p>3.link可以通过rel="alternate stylesheet"指定候选样式</p>
+        <p>4.浏览器对link支持早于@improt,可以使用@import对老浏览器隐藏样式</p>
+        <p>5.@import必须在样式规则之前,可以在css文件中引用其他文件</p>
+        <p>6.总体来说:link优于@import</p>
+    </details>
+    <details>
+        <summary>语义化是什么,有什么好处</summary>
+        <p>web语义化是指通过html标记表示页面包含的信息,包含了html标签的语义化.html标签的语义化是指:通过使用包含语义的标签恰当地表示文档结构.css命名的语义化是指:为html标签添加有意义的class,id补充表达的语义,如microformat通过添加符合规则的class描述信息为什么需要语义化:</p>
+        <p>去掉样式后页面呈现清晰的结构</p>
+        <p>盲人使用读屏器更好地阅读</p>
+        <p>搜索引擎更好地理解页面,有利于收录</p>
+        <p>便团队项目的可持续动作及维护</p>
+    </details>
 </div>
 <h1>CSS</h1>
 <div id="css">
@@ -104,6 +122,147 @@
         <p>em继承父级的font-size大小,是一种相对单位;em的值是不固定的;最原始的参照点是body定义的font-size;em的计算相对比较复杂.</p>
         <p>rem是css3新增的相对单位,所有的rem只相对html设置的字体大小.</p>
     </details>
+    <details>
+        <summary>css sprite是什么,有什么优缺点</summary>
+        <p>将多个图片拼接到一个图片中,通过background-position和元素尺寸调节需要显示的背景图案</p>
+        <p>优点:</p>
+        <p>1.减少http请求数,极大地提高页面加载速度</p>
+        <p>2.增加图片信息重复度,提高压缩比,减少图片大小</p>
+        <p>3.更换风格方便,只需在一张或几张图片上修改颜色或样式即可实现</p>
+        <p>缺点:</p>
+        <p>1.图片合并麻烦</p>
+        <p>1.维护麻烦,修改一个图片可能需要从新布局整个图片,样式</p>
+    </details>
+    <details>
+        <summary>display:none;与visibility:hidden;区别</summary>
+        <p>1.display:none;会让元素完全从渲染树中消失,渲染的时候不占据任何空间.visibility:hidden;不会让元素从渲染树消失,渲染元素继续占据空间,只是内容不可见</p>
+        <p>
+            2.display:none;是非继承属性,子孙节点消失由于元素从渲染树消失造成,通过修改子孙节点属性无法显示;visibility:hidden;是继承属性,子孙节点消失由于继承了hidden,通过设置visibility:visible;可以让子孙节点显示</p>
+        <p>3.修改常规流中元素的display通常会造成文档重排.修改visibility属性只会千万本元素的重绘</p>
+        <p>4.读屏器不会读取display:none;元素内容;会读取visibility:hidden;元素内容</p>
+    </details>
+    <details>
+        <summary>hack</summary>
+        <p>原理:利用不同浏览器对css的支持和解析结果不一样编写针对特定浏览器样式.常见hack有1.属性hack;2.选择器hack;3.ie条件注释</p>
+        <p>ie条件注释</p>
+        <p>&lt;!--[if IE 6]&gt;ie6样式&lt;![endif]--&gt;</p>
+
+        <p>选择器hack,不同浏览器对选择器的支持不一样</p>
+        <p>/*ie6 and below*/ *html #uno{color:red}</p>
+        <p>/*ie7*/ *:first-child+html #dos{color:red}</p>
+        <p>/*ie7,FF,Saf,Opera*/ html>body #tres{color:red}</p>
+        <p>/*ie8,FF,Saf,Opera(Everything but ie 6,7)*/ html>/**/body #tres{color:red}</p>
+        <p>/*opera 9.27 and below,safari 2*/ html:first-child #cinco{color:red}</p>
+        <p>/*safari 2-3*/ html[xmlns*=""] body:last-child #seis{color:red}</p>
+        <p>/*safari 3+,chrom 1+,opera9+,ff 3.5+*/ body:nth-of-type(1) #siete{color:red}</p>
+        <p>/*safari 3+,chrom 1+,opera9+,ff 3.5+*/ body:first-of-type #ocho{color:red}</p>
+        <p>/*safari 3+,chrom 1+*/ @media screen and (-webkit-min-device-pixel-ration:0){#diez{color:red}}</p>
+        <p>/*iphone,mobile webkit*/ @media screen and (max-device-width:480px){#diez{color:red}}</p>
+        <p>/*safari 2-3.1*/ html[xmlns*='']:root #trece{color:red}</p>
+        <p>/*safari 2-3.1,opera 9.25*/ *|html[xmlns*=''] #catorce{color:red}</p>
+        <p>/*everything but ie6-8*/ :root *> #quince{color:red}</p>
+        <p>/*ie7*/ *+html #dieciocho{color:red}</p>
+        <p>/*firefox only. 1+*/ #veinticuatro,x:-moz-any-link{color:red}</p>
+        <p>/*firefox 3.0+*/ #veinticuatro,x:-moz-any-link,x:deafault{color:red}</p>
+
+        <p>属性hack</p>
+        <p>ie6:#id{_color:blue;}</p>
+        <p>ie6,ie7:#id{*color:blue;}</p>
+        <p>everything but ie6:#id{color/**/:blue;}</p>
+        <p>ie6,ie7,ie8:#id{color:blue\9;}</p>
+        <p>ie6,ie7--acts as an !important:#id{color:blue !ie;}</p>
+    </details>
+    <details>
+        <summary>display:block;和display:inline;的区别</summary>
+        <p>block元素特别:</p>
+        <p>1.处于常规流中时,如果width没有设置,会自动填充满父容器</p>
+        <p>2.可以应用margin/padding</p>
+        <p>3.在没有设置高度的情况下会扩展高度以包含常规流中的子元素</p>
+        <p>4.处于常规流中时布局时在前后元素位置之间独占一行</p>
+        <p>5.忽略vertical-align</p>
+        <p>inline元素特点:</p>
+        <p>1.水平方向上根据direction依次布局</p>
+        <p>2.不会在元素前后进行换行</p>
+        <p>3.white-space控制</p>
+        <p>4.margin/padding在竖直方向上无效,水平方向上有效</p>
+        <p>5.width/height属性对非替换行内元素无效,宽度由元素内容决定</p>
+        <p>6.非替换行内元素的行框高由line-height确定,替换行内元素的行框高由height,margin,padding,border决定 </p>
+        <p>7.浮动或绝对定位时会转换为block</p>
+        <p>8.vertical-align属性生效</p>
+    </details>
+    <details>
+        <summary>png,gif,jpg的区别及如何选</summary>
+        <p>gif:</p>
+        <p>1.8位像素,256色</p>
+        <p>2.无损压缩</p>
+        <p>3.支持简单动画</p>
+        <p>4.支持boolean透明</p>
+        <p>5.适合简单动画</p>
+        <p>jpeg:</p>
+        <p>1.颜色限于256</p>
+        <p>2.有损压缩</p>
+        <p>3.可控制压缩质量</p>
+        <p>4.不支持透明</p>
+        <p>5.适合照片</p>
+        <p>png:</p>
+        <p>1.有png8和truecolor png</p>
+        <p>2.png8类似gif颜色上限为256,文件小,支持alpha透明度,无动画</p>
+        <p>3.适合图标,背景,按钮</p>
+    </details>
+    <details>
+        <summary>如何垂直剧中一个元素</summary>
+        <pre>1.
+            &lt;p class="text"&gt;center text&lt/p&gt;
+            &lt;style&gt;.text{line-height: 200px;}&lt;/style&gt;
+        </pre>
+        <pre>2.
+            &lt;div id="parent"&gt;&lt;div id="child"&gt;Text here&lt;/div&gt;&lt;/div&gt;
+            &lt;style&gt;#child{line-height:200px;} &lt;/style&gt;
+        </pre>
+        <pre>3.
+            &lt;div id="parent"&gt;&lt;div id="child"&gt;Text here&lt;/div&gt;&lt;/div&gt;
+            &lt;style&gt;#parent{display:table;}#child{display:table-cell;vertical-align:middle;} &lt;/style&gt;
+        </pre>
+        <pre>4.
+            &lt;div id="parent"&gt;&lt;div id="child"&gt;Text here&lt;/div&gt;&lt;/div&gt;
+            &lt;style&gt;#parent{position:relative;}#child{position: absolute;top: 0;left: 0;right: 0;bottom: 0;width: 50%;height: 30%;margin: auto;} &lt;/style&gt;
+        </pre>
+        <pre>5.
+            &lt;div id="parent"&gt;&lt;div id="child"&gt;Text here&lt;/div&gt;&lt;/div&gt;
+            &lt;style&gt;#parent{padding:5% 0;}#child{10% 0;} &lt;/style&gt;
+        </pre>
+        <pre>6.
+            &lt;div id="parent"&gt;&lt;div id="floater"&gt;&lt;/div&gt;&lt;div id="child"&gt;Text here&lt;/div&gt;&lt;/div&gt;
+            &lt;style&gt;#parent {height: 250px;}#floater {float: left;height: 50%;width: 100%;margin-bottom: -50px;}#child {clear: both;height: 100px;} &lt;/style&gt;
+        </pre>
+        <pre>7.
+            &lt;div id="parent"&gt;&lt; src='image.png'/&gt;&lt;/div&gt;
+            &lt;style&gt;#parent{line-height:200px;}#parent img{vertical-align:middle;} &lt;/style&gt;
+        </pre>
+    </details>
+    <details>
+        <summart>如何水平居中一个元素</summart>
+        <p>如果需要居中的元素为常规流中inline元素,为父元素设置text-align:center即可实现</p>
+        <p>如果需要剧中的元素为常规流中block元素,1.为元素设置宽度;2.设置左右margin为auto;3.ie6下需在父元素上设置text-align:center;再给子元素恢复需要的值</p>
+        <p>&lt;div class='content'&gt;aaaa&lt;div&gt;&lt;style&gt;&lt;body{text-align:center;}.content{margin:0 auto;width:500px;}/style&gt;</p>
+        <p>如果需要居中的元素为浮云元素:1.为元素设置宽度;2.position:relative;3.浮动方向偏移量(left或right)4.浮动方向上的margin设置为元素宽度的一半*-1</p>
+        <p>&lt;div class='content'&gt;aaaa&lt;div&gt;&lt;&lt;style&gt;&lt;.content{width: 500px;float: left;border: 1px solid red;position: relative;left: 50%;margin-left: -250px;}/style&gt;</p>
+        <p>如果需要居中的元素为绝对定位元素,1.为元素设置宽度;2.设置左右偏移量为0;3.设置左右外边距为auto</p>
+        <p>&lt;div class='content'&gt;aaaa&lt;div&gt;&lt;&lt;style&gt;&lt;body{position:relative;}.content{position:absolute;margin: auto;left: 0;right: 0;width: 500px;}/style&gt;</p>
+    </details>
+    <details>
+        <summary>什么是FOUC?如何避免?</summary>
+        <p>Flash Of Unstyled Content:用户定义样式表加载之前浏览器使用默认样式显示文档,用户样式加载渲染之后再从新显示文档,造成页面闪烁</p>
+        <p>解决方法:把样式表放到文档的head</p>
+    </details>
+    <details>
+        <summary>外边距折叠</summary>
+        <p>毗邻的两个或多个margin会合并成一个margin,叫做外边距折叠</p>
+        <p>1.两个或多个毗邻的普通流中的块元素垂直方向上的margin会折叠</p>
+        <p>2.浮动元素/inline-block元素/绝对定位元素的margin不会和垂直方向上的其他元素的margin折叠</p>
+        <p>3.创建了块级格式化上下文的元素,不会和它的子元素发生margin折叠</p>
+        <p>4.元素自身的margin-bottom和margin-top相邻时也会折叠</p>
+    </details>
 </div>
 <h1>JavaScript</h1>
 <div id="javascript">
@@ -112,7 +271,8 @@
         <p>Undefined,Null,Boolean,Number,String(ECMAScript2015新增Symbol[创建后独一无二不可变的数据类型])</p>
         <summary>js引用类型</summary>
         <p>除基本类型之外的都是引用类型.包括对象,数组,函数.</p>
-        <p>基本类型存储在栈区,引用类型存储在堆区,堆区和栈区的不同在于,在栈区变量的操作独立的,而在堆区,变量是一种引用和指向关系,复制后的变量不会生成副本,只会定义指向变量值得指针,因此多个指针操作的其实是同一个堆的值.</p>
+        <p>
+            基本类型存储在栈区,引用类型存储在堆区,堆区和栈区的不同在于,在栈区变量的操作独立的,而在堆区,变量是一种引用和指向关系,复制后的变量不会生成副本,只会定义指向变量值得指针,因此多个指针操作的其实是同一个堆的值.</p>
     </details>
     <details>
         <summary>null,undefined区别</summary>
@@ -120,7 +280,8 @@
     </details>
     <details>
         <summary>js内置对象</summary>
-        <p>Object是js中所有对象的父对象.数据封装类对象:Object,Array,Boolean,Number,String.其他对象:Function,Arguments,Math,Date,RegExp,Error</p>
+        <p>
+            Object是js中所有对象的父对象.数据封装类对象:Object,Array,Boolean,Number,String.其他对象:Function,Arguments,Math,Date,RegExp,Error</p>
     </details>
     <details>
         <summary>cookie怎么操作</summary>
@@ -159,8 +320,76 @@
         <p>2. arguments不再追踪参数的变化 即: arguments将忽略参数在函数内部的更改.</p>
         <p>3. 禁止使用arguments.callee ; 无法再匿名函数内部调用自身.</p>
     </details>
+    <details>
+        <summary>this</summary>
+        <p>this总是返回一个对象,简单说,就是返回属性或方法'当前'所在的对象</p>
+    </details>
+    <details>
+        <summary>sessionStorage,localStorage,cookie区别</summary>
+        <p>1.都会在浏览器端保存,有大小限制,同源限制</p>
+        <p>2.cookie会在请求时发送到服务器,作为会话标识,服务器可修改cookie;web storage不地发送到服务器</p>
+        <p>3.cookie有path概念,子路径可以访问父路径cookie,父路径不能访问子路径cookie</p>
+        <p>4.有效期:cookie在设置的有</p>
+    </details>
+    <details>
+        <summary>js设备检测（判断是移动端还是PC端）</summary>
+        <pre>
+            1.function detectmob() {
+                if( navigator.userAgent.match(/Android/i)|| navigator.userAgent.match(/webOS/i)|| navigator.userAgent.match(/iPhone/i)|| navigator.userAgent.match(/iPad/i)|| navigator.userAgent.match(/iPod/i)|| navigator.userAgent.match(/BlackBerry/i)|| navigator.userAgent.match(/Windows Phone/i)){
+                    $("body").css('background','red');
+                    return true;
+                }else {
+                    $("body").css('background','blue');
+                    return false;
+                }
+            }
+            2.if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){
+                alert('移动端')
+            }
+            3.if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+               alert('手机端')
+            }else{
+               alert('移动端')
+            }
+        </pre>
+        <summary>利用userAgent判断系统类型（PC端和移动端）</summary>
+        <pre>
+            require(['jquery'], function($) {
+            var ua = navigator.userAgent;
+            console.log(ua);
+            /********************** 判断pc系统类型 **********************/
+            if (ua.indexOf("Windows NT 5.1") !== -1) console.log("Windows Vista");
+            if (ua.indexOf("Windows NT 6.1") !== -1) console.log("Windows 7");
+            if (ua.indexOf("Windows NT 6.2") !== -1) console.log("Windows 8");
+            if (ua.indexOf("Windows NT 10") !== -1) console.log("Windows 10");
+            if (ua.indexOf("Mac OS X 10_7") !== -1) console.log("OSX 10.7");
+            if (ua.indexOf("Mac OS X 10.8") !== -1) console.log("OSX 10.8");
+            if (ua.indexOf("Mac OS X 10_8") !== -1) console.log("OSX 10.8");
+            if (ua.indexOf("Linux") !== -1) console.log("Linux");
+            /********************** 判断手机系统类型 **********************/
+            if (ua.indexOf("Android") !== -1) console.log("Android");
+            if (ua.indexOf("Android 2.3") !== -1) console.log("Android 2.3");
+            if (ua.indexOf("Android 4.0") !== -1) console.log("Android 4.0");
+            if (ua.indexOf("Android 4.1") !== -1) console.log("Android 4.1");
+            if (ua.indexOf("Windows Phone 8") !== -1) console.log("Windows Phone 8");
+            if (ua.match(/OS 7_[0-9_]+ like Mac OS X/i)) console.log("iOS7");
+            if (ua.match(/OS 6_[0-9_]+ like Mac OS X/i)) console.log("iOS6");
+            if (ua.match(/OS 5_[0-9_]+ like Mac OS X/i)) console.log("iOS5");
+            if (ua.match(/OS 4_[0-9_]+ like Mac OS X/i)) console.log("iOS4");
+            /********************** 判断浏览器类型 **********************/
+            if (ua.indexOf("MSIE 9") !== -1) console.log("Internet Explorer 9");
+            if (ua.indexOf("MSIE 8") !== -1) console.log("Internet Explorer 8");
+            if (ua.indexOf("MSIE 7") !== -1) console.log("Internet Explorer 7");
+            if (ua.indexOf("MSIE 6") !== -1) console.log("Internet Explorer 6");
+            if (ua.indexOf("Firefox") !== -1) console.log("Firefox");
+            if (ua.indexOf("Chrome") !== -1) console.log("Chrome");
+            if (ua.indexOf("Mobile Safari") !== -1 && ua.indexOf("Android") !== -1) console.log("Mobile Safari");
+            if (ua.indexOf("Safari") !== -1) console.log("Safari");
+        })
+        </pre>
+    </details>
 </div>
-<h1>JavaScript</h1>
+<h1>浏览器</h1>
 <div id="bowers">
     <details>
         <summary>浏览器数据存储有哪些方式</summary>
@@ -190,54 +419,105 @@
         <p>2</p>
     </details>
     <details>
-        <summary>var obj={a:1,b:function(){console.log(this.a);}};var a=2;var objb=obj.b;obj.b();objb();obj.b.call(window);</summary>
+        <summary>var obj={a:1,b:function(){console.log(this.a);}};var a=2;var
+            objb=obj.b;obj.b();objb();obj.b.call(window);
+        </summary>
         <p>1,2,2</p>
+    </details>
+    <details>
+        <summary>this</summary>
+        <summary>var A = {name: '张三',describe: function () {return '姓名：'+ this.name;}};var name = '李四';var f =
+            A.describe;console.log(f());
+        </summary>
+        <p>"姓名：李四"</p>
+        <p>内部的this就会指向f运行时所在的对象（本例是顶层对象）</p>
+        <summary>function f(){return this;}f()===window;//true</summary>
+        <p>true</p>
+        <p>不管是不是在函数内部，只要是在全局环境下运行，this就是指顶层对象window。</p>
+        <summary>var obj ={foo: function () {console.log(this);}};obj.foo()</summary>
+        <p>obj</p>
+    </details>
+</div>
+<h1>网页优化</h1>
+<div id="page">
+    <details>
+        <summary>前端需要注意哪些SEO(搜索引擎优化)</summary>
+        <p>
+            1.合理的title,descripttion,keywords:搜索对着三项的权重逐个减小,title值强调重点即可,重要关键词不超过2次,而且要靠前,不同页面title要有所不同,description把页面内容高度概括,长度合适,不可过分堆砌关键词,不同页面description有所不同;keywords列举出重要关键词即可</p>
+        <p>2.语义化的html代码,符合w3c规范:语义化代码让搜索引擎容易理解网页</p>
+        <p>3.重要内容html代码放在最前,搜索引擎抓取html顺序是从上到下,有的搜索引擎对抓取长度有限制,保证重要内容一定会被抓取</p>
+        <p>4.重要内容不要用js输出,爬虫不会执行js获取内容</p>
+        <p>5.少用iframe搜索引擎不会抓取iframe中的内容</p>
+        <p>6.非装饰性图片必须加alt</p>
+        <p>7.提高网站速度:网站速度是搜索引擎排序的一个重要指标</p>
+    </details>
+    <details>
+        <summary>什么是渐进增强</summary>
+        <p>渐进增强是指在web设计时强调可访问性,语义化标签,外部样式表和脚本.保证所有人都能访问页面的基本内容和功能同时为高级浏览器和高带宽用户提供更好的用户体验.核心原则如下:</p>
+        <p>1.所有浏览器都必须能访问基本内容</p>
+        <p>2.所有浏览器都必须能使用基本功能</p>
+        <p>3.所有内容都包含在语义化标签中</p>
+        <p>4.通过外部css提供增强的布局</p>
+        <p>5.通过非侵入式,外部javascript提供增强功能</p>
+        <p>6.</p>
     </details>
 </div>
 <script>
     /*for(var i=0;i<10;i++){}
-    console.log(i);*/
+     console.log(i);*/
     /*var a={n:1};
-    var b=a;
-    a.x=a={n:2};
-    console.log(a.x);
-    console.log(b.x);*/
+     var b=a;
+     a.x=a={n:2};//.的优先级比=高所以a.x=undefined,a指向{n:2},a.x指向{n:2}
+     console.log(a);
+     console.log(a.x);
+     console.log(b.x);*/
     /*console.log(1&&2);//2
-    console.log(0||1);//1
-    console.log(2||1);//2
-    console.log('a'||1);//a
-    console.log(''||1);//1
-    console.log('a'||0);//a
-    console.log('a'||'b');//a
-    console.log(''||0);//0
-    console.log(0||'');//''
-    console.log(''&&1);//''
-    console.log(''&&0);//''
-    console.log('a'&&1);//1
-    console.log('a'&&0);//0
-    console.log('a'&&'');//''
-    console.log(0&&'a');//0
-    console.log(0&&'');//0*/
+     console.log(0||1);//1
+     console.log(2||1);//2
+     console.log('a'||1);//a
+     console.log(''||1);//1
+     console.log('a'||0);//a
+     console.log('a'||'b');//a
+     console.log(''||0);//0
+     console.log(0||'');//''
+     console.log(''&&1);//''
+     console.log(''&&0);//''
+     console.log('a'&&1);//1
+     console.log('a'&&0);//0
+     console.log('a'&&'');//''
+     console.log(0&&'a');//0
+     console.log(0&&'');//0*/
     /*var a=1;
-    function d(){
-        var a=2;
-        function c(){
-            console.log("a"+a);
-        };
-        return c;
-    };
-    d()();*/
-    var obj={
-        a:1,
-        b:function(){
-            console.log(this.a);
-        }
-    };
-    var a=2;
-    var objb=obj.b;
-    obj.b();
-    objb();
-    obj.b.call(window);
+     function d(){
+     var a=2;
+     function c(){
+     console.log("a"+a);
+     };
+     return c;
+     };
+     d()();*/
+    /*var obj={
+     a:1,
+     b:function(){
+     console.log(this.a);
+     }
+     };
+     var a=2;
+     var objb=obj.b;
+     obj.b();
+     objb();
+     obj.b.call(window);*/
+    /*var A = {
+     name: '张三',
+     describe: function () {
+     return '姓名：'+ this.name;
+     }
+     };
+
+     var name = '李四';
+     var f = A.describe;
+     console.log(f()); // "姓名：李四"*/
+    /*console.log(Math.abs(~2016));*/
 </script>
 </body>
 </html>
