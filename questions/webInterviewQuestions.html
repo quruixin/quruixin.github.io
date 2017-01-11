@@ -329,7 +329,11 @@
         <p>1.都会在浏览器端保存,有大小限制,同源限制</p>
         <p>2.cookie会在请求时发送到服务器,作为会话标识,服务器可修改cookie;web storage不地发送到服务器</p>
         <p>3.cookie有path概念,子路径可以访问父路径cookie,父路径不能访问子路径cookie</p>
-        <p>4.有效期:cookie在设置的有</p>
+        <p>4.有效期:cookie在设置的有效期内有效,默认为浏览器关闭;sessionStorage在窗口关闭前有效,localStorage长期有效,直到用户删除</p>
+        <p>5.共享:sessionStorage不能共享,localStorage在同源文档之间共享,cookie在同源且符合path规则的文档之间共享</p>
+        <p>6.localStorage的修改会促发其他文档窗口的update事件</p>
+        <p>7.cookie有secure属性要求https传输</p>
+        <p>8.浏览器不能保存超过300个cookie,单个服务器不能超过20个,每个cookie不能超过4k,web storage大小支持能达到5M</p>
     </details>
     <details>
         <summary>js设备检测（判断是移动端还是PC端）</summary>
@@ -390,6 +394,46 @@
             if (ua.indexOf("Safari") !== -1) console.log("Safari");
         })
         </pre>
+    </details>
+    <details>
+        <summary>什么是闭包,有什么用?</summary>
+        <p>闭包是在某个作用域内定义的函数,它可以访问这个作用域内的所有变量.闭包作用域链通常包括有一个部分:</p>
+        <p>1.函数本身作用域</p>
+        <p>2.闭包定义时的作用域</p>
+        <p>3.全局作用域</p>
+        <p>闭包常见用途:</p>
+        <p>1.创建特权方法用于访问控制</p>
+        <p>2.事件处理程序及回调</p>
+    </details>
+    <details>
+        <summary>javascript有哪些方法定义对象</summary>
+        <p>1.对象字面量:var obj = {};</p>
+        <p>2.构造函数:var obj = new Object();</p>
+        <p>3.Object.create():var obj = Object.create(Object.prototype);</p>
+    </details>
+    <details>
+        <summary>===运算符判断的流程是怎样的</summary>
+        <p>1.如果两个值不是相同类型,它们不相等</p>
+        <p>2.如果两个值都是null或者undefined,它们相等</p>
+        <p>3.如果两个值都是布尔类型true或者都是false,它们相待</p>
+        <p>4.如果其中有一个是NaN,它们不相等</p>
+        <p>5.如果都是数值型并且数值相等,它们相等,-0等于0</p>
+        <p>6.如果他们都是字符串并且在相同位置包含相同的16位值,它们相等;如果在长度或者内容上不等,它们不相等,两个字符串显示结果相同但是编码不同==和===都认为他们不相等</p>
+        <p>7.如果它们指向相同对象,数组,函数,它们相等;如果指向不同对象,他们不相等</p>
+    </details>
+    <details>
+        <summary>==运算符判断的流程是怎样的</summary>
+        <p>1.如果两个值类型相同,按照===比较方法进行比较</p>
+        <p>2.如果类型不同,使用如下规则进行比较</p>
+        <p>a.如果其中一个值是null,另一个是undefined,它们相等</p>
+        <p>b.如果一个值是数字另一个是字符串,将字符串转换为数字进行比较</p>
+        <p>c.如果有布尔类型,将true转换为1,false转换为0,然后用==规则继续比较</p>
+        <p>d.如果一个值是对象,另一个是数字或字符串,将对象转换为原始值然后用==规则继续比较</p>
+        <p>e.其他所有情况都认为不相等</p>
+    </details>
+    <details>
+        <summary>对象到字符串的转换步骤</summary>
+        <p>1.如果对象有toString()方法,javascript调用它.如果返回一个原始值,将这个值转换为字符串作为结果</p>
     </details>
 </div>
 <h1>浏览器</h1>
