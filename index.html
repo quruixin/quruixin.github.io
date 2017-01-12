@@ -4,38 +4,217 @@
     <title>Rose</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style>
-        .menu{
-            float:left;
-            border: 1px solid #aaa;
-            padding: 10px;
-            line-height: 40px;
+        body{
+            font: 100%/1.4em "Helvetica Neue",Helvetica,Arial,sans-serif;
+            color:#333;
         }
-        .menu a{
+        .project-html5-box .layout h3{
+            background-color: #1A171B;
+            color: #fab800;
+            width: 100px;
+            height: 50px;
+            text-align: center;
+            display: block;
+            font-size: 1em;
+            font-weight: 900;
+            line-height: 2.7em;
+            border-radius: 100%;
+            margin: 0 auto 15px;
+        }
+        .project-html5-box{
+            overflow: hidden;
+            background-color: #fab800;
+            text-align: center;
+            padding:1em 0 6em;
+            border:0;
+            border-image: url("images/waveBorder.png") 25 0 repeat;
+            border-bottom: 22px;
+        }
+        .project-html5-box li{
+            float: left;
+            border-radius: .5em .2em;
+            margin: 2em 2.5% 3em;
+            box-sizing: border-box;
+            text-align: left;
+            position: relative;
+            vertical-align: top;
+            min-height: 7em;
+            padding: 5px 5px 5px 115px;
+            border: 3px solid #1A171B;
+            background-color: #fff;
+            box-shadow: 3px 3px 0 #fab800 inset,3px 3px 0 #fff;
+            list-style: none;
+        }
+        .project-html5-box li h4{
+            font-size: 1.2em;
+            line-height: 1.3em;
+            font-weight: 400;
+            letter-spacing: .08em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .project-html5-box li h4 a{
+            color:#EB7106;
             text-decoration: none;
-            color:#aaa;
+            cursor: auto;
         }
+        .project-html5-box li>a img{
+            width:80px;
+            height:80px;
+            display: block;
+            position: absolute;
+            top: -25px;
+            left: 15px;
+            border: 3px solid #1A171B;
+            border-radius: .2em .7em .2em .5em;
+            box-shadow: 3px 2px 0 #fff;
+            padding: 3px 0 0 3px;
+            background-color: #fff;
+        }
+        .project-html5-box li div{
+            position: absolute;
+            background-color: #1A171B;
+            bottom: -6px;
+            right: -6px;
+            left: 3px;
+            padding: 0 .5em 0 8%;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            border-radius: 0 0 .5em .2em;
+            color: #fff;
+        }
+        .project-html5-box li div b{
+            color: #f9b800;
+        }
+        @media screen and (min-width: 40em){
+            .project-html5-box li {
+                width: 44%;
+                display: inline-block;
+            }
+        }
+        @media screen and (min-width: 54em){
+            .project-html5-box li {
+                width: 28%;
+                display: inline-block;
+            }
+        }
+
+
     </style>
 </head>
 <body>
+<section class="project-html5-box">
+    <div class="layout">
+        <h3>HTML5</h3>
+    </div>
+    <ul id="projectBox"></ul>
+</section>
+<script src="jquery-1.8.3.min.js"></script>
+<script>
+    var data=[
+        {
+            name:'玫瑰',
+            url:'rose/index.html',
+            imgSrc:'images/rose.png',
+            lang:'javascript'
+        },
+        {
+            name:'html5超炫酷粒子效果的进度条',
+            url:'html5-css3-progress-bar/index.html',
+            imgSrc:'images/progress-bar.png',
+            lang:'html5'
+        },
+        {
+            name:'html5火焰文字特效',
+            url:'html5-css3-fire-text/index.html',
+            imgSrc:'images/fire-text.png',
+            lang:'html5'
+        },
+        {
+            name:'html5粒子效果文字动画特效',
+            url:'html5-canvas-side-text/index.html',
+            imgSrc:'images/side-text.png',
+            lang:'html5'
+        },
+        {
+            name:'html5粒子波浪动画特效',
+            url:'html5-3d-wave/index.html',
+            imgSrc:'images/wave.png',
+            lang:'html5'
+        },
+        {
+            name:'html5粒子背景特效',
+            url:'html5-particle2/index.html',
+            imgSrc:'images/particle1.png',
+            lang:'html5'
+        },
+        {
+            name:'html5粒子模拟效果',
+            url:'html5-particle1/index.html',
+            imgSrc:'images/particle1.png',
+            lang:'html5'
+        },
+        {
+            name:'瀑布流图片加载',
+            url:'瀑布流加载图片/index.html',
+            imgSrc:'images/pull.png',
+            lang:'javascript'
+        },
+        {
+            name:'canvas倒计时',
+            url:'canvas倒计时/index.html',
+            imgSrc:'images/time.png',
+            lang:'canvas'
+        },
+        {
+            name:'canvas满天星',
+            url:'canvas绘图详解/starts.html',
+            imgSrc:'images/stars.png',
+            lang:'canvas'
+        },
+        {
+            name:'小球乱撞',
+            url:'canvas绘图详解/canvasOtherElm.html',
+            imgSrc:'images/rolls.png',
+            lang:'canvas'
+        },
+        {
+            name:'canvas写一个字',
+            url:'canvas写一个字/index.html',
+            imgSrc:'images/write.png',
+            lang:'canvas'
+        },
+        {
+            name:'3d翻页',
+            url:'css3三维动画效果/3dpractice.html',
+            imgSrc:'images/3dpractice.png',
+            lang:'canvas'
+        },
+        {
+            name:'css3三维动画效果',
+            url:'css3三维动画效果/cube.html',
+            imgSrc:'images/cube.png',
+            lang:'canvas'
+        },
+        {
+            name:'前端知识',
+            url:'questions/webInterviewQuestions.html',
+            imgSrc:'images/question.png',
+            lang:''
+        }
 
-<div class="menu">
-    <a href="html5_cutImage/cutImage.html">HTML5本地裁剪图片</a><br>
-    <a href="javascript_cutImage/index.html">javascript本地裁剪图片</a><br>
-    <a href="瀑布流加载图片/index.html">瀑布流图片加载</a><br>
-    <a href="canvas倒计时/index.html">canvas时钟</a><br>
-    <a href="canvas绘图详解/starts.html">canvas满天星</a><br>
-    <a href="canvas绘图详解/canvasOtherElm.html">小球乱撞</a><br>
-    <a href="canvas写一个字/index.html">canvas写一个字</a><br>
-    <a href="css3三维动画效果/3dpractice.html">3d翻页</a><br>
-    <a href="css3三维动画效果/cube.html">3d旋转6边体</a><br>
-    <a href="questions/webInterviewQuestions.html">questions</a><br>
-    <a href="html5-particle1/index.html">html5粒子模拟效果</a><br>
-    <a href="html5-particle2/index.html">html5粒子背景特效</a><br>
-    <a href="html5-3d-wave/index.html">html5 粒子波浪动画特效</a><br>
-    <a href="html5-canvas-side-text/index.html">html5 粒子效果文字动画特效</a><br>
-    <a href="html5-css3-fire-text/index.html">html5 火焰文字特效</a><br>
-    <a href="html5-css3-progress-bar/index.html">html5 超炫酷粒子效果的进度条</a><br>
-    <a href="rose/index.html">玫瑰</a><br>
-</div>
+    ];
+    var str='';
+    for(var i=0;i<data.length;i++){
+        str+='<li>' +
+                '<h4><a href="'+data[i].url+'" id="name">'+data[i].name+'</a></h4>' +
+                '<a href="'+data[i].url+'" id="url"><img src="'+data[i].imgSrc+'" alt=""></a>' +
+                '<div><b id="lang">'+data[i].lang+'</b></div>' +
+             '</li>';
+    }
+    $("#projectBox").html(str);
+
+</script>
 </body>
 </html>
