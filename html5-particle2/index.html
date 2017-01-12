@@ -4,7 +4,10 @@
 	<meta charset="UTF-8">
 	<title>Particles</title>
 	<style>
-		body{background:rgba(0,0,0,1)}
+		body{
+			background-image:url("index.jpg");
+			background-size:cover;
+		}
 	</style>
 </head>
 <body>
@@ -16,8 +19,10 @@
 				height: 2,//点高，其实为正方形，所以不宜太大
 				width: 2,//点宽，其实为正方形，所以不宜太大
 				count: 200,//点个数
-				color: "121, 162, 185",//点颜色
-				stroke: "100,200,180",//线条颜色
+				/*color: "121, 162, 185",//点颜色
+				stroke: "100,200,180",//线条颜色*/
+				stroke:'255,255,255',
+				color:'200,200,200',
 				dist: 6000,//点吸附距离
 				e_dist: 20000,//鼠标吸附加速距离
 				max_conn: 10//点到点最大连接数
