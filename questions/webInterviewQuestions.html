@@ -471,6 +471,10 @@
         </summary>
         <p>1,2,2</p>
     </details>
+    <detail>
+        <summary>var a=0,b=0;function A(a){A=function(b){alert(a+b++);}alert(a);}A(1);A(12);</summary>
+        <p>1,13</p>
+    </detail>
     <details>
         <summary>this</summary>
         <summary>var A = {name: '张三',describe: function () {return '姓名：'+ this.name;}};var name = '李四';var f =
@@ -565,6 +569,15 @@
      var f = A.describe;
      console.log(f()); // "姓名：李四"*/
     /*console.log(Math.abs(~2016));*/
+    var a=0,b=0;
+    function A(a){
+        A=function(b){
+            alert(a+b++);
+        }
+        alert(a);
+    }
+    A(1);
+    A(12);
 </script>
 </body>
 </html>
