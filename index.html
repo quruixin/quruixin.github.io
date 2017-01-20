@@ -128,16 +128,13 @@
     <ul id="projectBox"></ul>
 </section>
 <section class="study-box">
-    <ul>
-        <li><a href="http://es6.ruanyifeng.com/"><img src="images/ECMAScript6.jpg" alt=ECMAScript6""></a></li>
-        <li><a href="http://am-team.github.io/amg/dev-exp-doc.html"><img src="images/webApp.png" alt="移动webApp"></a></li>
-        <li><a href="http://www.cnblogs.com/PeunZhang/p/3407453.html"><img src="images/webApp1.png" alt="移动webApp"></a></li>
-        <li><a href="http://www.htmleaf.com/"><img src="images/jquery.png" alt="jquery"></a></li>
-        <li><a href="http://www.lixuejiang.me/2016/11/01/JavaScript%E7%9A%84%E7%BB%83%E4%B9%A0%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/"><img src="images/javascriptParice.png" alt="前端测试"></a></li>
-        <li><a href="https://www.nowcoder.com/ta/js-assessment"><img src="images/niuke.png" alt="牛客前端测试"></a></li>
-        <li><a href="https://freecodecamp.cn/home"><img src="images/test.png" alt="test"></a></li>
+    <ul id="bookShelf"></ul>
+   <!-- <ul>
+        <li><a href=""><img src="" alt=""></a></li>
+        <li><a href=""><img src="" alt=""></a></li>
+        <li><a href=""><img src="" alt=""></a></li>
 
-    </ul>
+    </ul>-->
 </section>
 <script src="jquery-1.8.3.min.js"></script>
 <script>
@@ -181,7 +178,7 @@
         {
             name:'html5粒子模拟效果',
             url:'html5-particle1/index.html',
-            imgSrc:'images/particle1.png',
+            imgSrc:'images/particle2.png',
             lang:'html5'
         },
         {
@@ -244,6 +241,58 @@
     }
     $("#projectBox").html(str);
 
+    var bookData=[
+        {
+            "url":'http://es6.ruanyifeng.com/',
+            "src":'images/ECMAScript6.jpg',
+            "alt":'ECMAScript6'
+        },
+        {
+            "url":'http://am-team.github.io/amg/dev-exp-doc.html',
+            "src":'images/webApp1.png',
+            "alt":'移动webApp'
+        },
+        {
+            "url":'http://am-team.github.io/amg/dev-exp-doc.html',
+            "src":'images/webApp.png',
+            "alt":'移动webApp'
+        },
+        {
+            "url":'http://www.htmleaf.com/',
+            "src":'images/jquery.png',
+            "alt":'jquery'
+        },
+        {
+            "url":'http://www.lixuejiang.me/2016/11/01/JavaScript%E7%9A%84%E7%BB%83%E4%B9%A0%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/',
+            "src":'images/javascriptParice.png',
+            "alt":'前端测试'
+        },
+        {
+            "url":'https://www.nowcoder.com/ta/js-assessment',
+            "src":'images/niuke.png',
+            "alt":'牛客前端测试'
+        },
+        {
+            "url":'https://freecodecamp.cn/home',
+            "src":'images/test.png',
+            "alt":'test'
+        },
+        {
+            "url":'http://www.ycku.com/javascript/',
+            "src":'images/js.png',
+            "alt":'javascript-李炎恢'
+        },
+        {
+            "url":'http://javascript.ruanyifeng.com',
+            "src":'images/js-yuanyifeng.png',
+            "alt":'javascript-李炎恢'
+        }
+    ];
+    var bookStr='';
+    for(var i=0;i<bookData.length;i++){
+        bookStr+='<li><a href="'+bookData[i].url+'"><img src="'+bookData[i].src+'" alt="'+bookData[i].alt+'"></a></li>';
+    }
+    $("#bookShelf").html(bookStr);
 </script>
 </body>
 </html>
