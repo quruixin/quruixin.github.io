@@ -485,15 +485,13 @@
         <p>2</p>
     </details>
     <details>
-        <summary>var obj={a:1,b:function(){console.log(this.a);}};var a=2;var
-            objb=obj.b;obj.b();objb();obj.b.call(window);
-        </summary>
+        <summary>var obj={a:1,b:function(){console.log(this.a);}};var a=2;varobjb=obj.b;obj.b();objb();obj.b.call(window);</summary>
         <p>1,2,2</p>
     </details>
-    <detail>
+    <details>
         <summary>var a=0,b=0;function A(a){A=function(b){alert(a+b++);}alert(a);}A(1);A(12);</summary>
         <p>1,13</p>
-    </detail>
+    </details>
     <details>
         <summary>this</summary>
         <summary>var A = {name: '张三',describe: function () {return '姓名：'+ this.name;}};var name = '李四';var f =
