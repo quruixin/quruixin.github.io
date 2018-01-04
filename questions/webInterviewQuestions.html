@@ -4,7 +4,7 @@
     <title>前端知识问答</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style>
-        #html, #css, #javascript, #bowers, #code, #page {
+        #html, #css, #javascript, #bowers, #code, #page ,#all{
             border: 1px solid #aaa;
             padding: 5px 10px;
             font-size: 14px;
@@ -49,6 +49,10 @@
         <p>4.浏览器对link支持早于@improt,可以使用@import对老浏览器隐藏样式</p>
         <p>5.@import必须在样式规则之前,可以在css文件中引用其他文件</p>
         <p>6.总体来说:link优于@import</p>
+        <p>1.link是XHTML标签,除了加载ＣＳＳ外,还可以定义RSS等其他事务,@import属于CSS范畴,只能加载CSS</p>
+        <p>2.link引用CSS时,在页面载入时同时加载,@import需要页面网页完全载入以后加载.</p>
+        <p>3.link是XHTML标签,无兼容性问题,@import是CSS2.1提出的,低版本浏览器不支持.</p>
+        <p>4.link支持JavaScript控制DOM去改变样式,而@import不支持.</p>
     </details>
     <details>
         <summary>语义化是什么,有什么好处</summary>
@@ -58,6 +62,21 @@
         <p>搜索引擎更好地理解页面,有利于收录</p>
         <p>便团队项目的可持续动作及维护</p>
     </details>
+    <details>
+        <summary>iframe有哪个优缺点?</summary>
+        <p>iframe会阻塞主页面的onload事件</p>
+        <p>搜索引擎的检索程序无法解读这种页面,不利于SEO(搜索引擎优化Search Engine Optimization)</p>
+        <p>iframe和主页面共享连接池,而浏览器对相同域的连接有限制,所以会影响页面的并行加载.</p>
+        <p>使用iframe之前需要考虑到这些缺点,如果需要使用iframe,最好通过javascript动态给iframe添加src属性值,可以绕开缺点.</p>
+    </details>
+    <!--<details>
+        <summary></summary>
+        <p></p>
+    </details>
+    <details>
+        <summary></summary>
+        <p></p>
+    </details>-->
 </div>
 <h1>CSS</h1>
 <div id="css">
@@ -513,71 +532,20 @@
         <p>6.</p>
     </details>
 </div>
-<script>
-    /*for(var i=0;i<10;i++){}
-     console.log(i);*/
-    /*var a={n:1};
-     var b=a;
-     a.x=a={n:2};//.的优先级比=高所以a.x=undefined,a指向{n:2},a.x指向{n:2}
-     console.log(a);
-     console.log(a.x);
-     console.log(b.x);*/
-    /*console.log(1&&2);//2
-     console.log(0||1);//1
-     console.log(2||1);//2
-     console.log('a'||1);//a
-     console.log(''||1);//1
-     console.log('a'||0);//a
-     console.log('a'||'b');//a
-     console.log(''||0);//0
-     console.log(0||'');//''
-     console.log(''&&1);//''
-     console.log(''&&0);//''
-     console.log('a'&&1);//1
-     console.log('a'&&0);//0
-     console.log('a'&&'');//''
-     console.log(0&&'a');//0
-     console.log(0&&'');//0*/
-    /*var a=1;
-     function d(){
-     var a=2;
-     function c(){
-     console.log("a"+a);
-     };
-     return c;
-     };
-     d()();*/
-    /*var obj={
-     a:1,
-     b:function(){
-     console.log(this.a);
-     }
-     };
-     var a=2;
-     var objb=obj.b;
-     obj.b();
-     objb();
-     obj.b.call(window);*/
-    /*var A = {
-     name: '张三',
-     describe: function () {
-     return '姓名：'+ this.name;
-     }
-     };
-
-     var name = '李四';
-     var f = A.describe;
-     console.log(f()); // "姓名：李四"*/
-    /*console.log(Math.abs(~2016));*/
-    var a=0,b=0;
-    function A(a){
-        A=function(b){
-            alert(a+b++);
-        }
-        alert(a);
-    }
-    A(1);
-    A(12);
-</script>
+<h1>综合</h1>
+<div id="all">
+    <details>
+        <summary>浏览器页面有哪三层结构,分别是什么,作用是什么?</summary>
+        <p>构成:结构层,表示层,行为层</p>
+        <p>分别是:HTML,CSS,JavaScript</p>
+        <p>HTML实现页面结构,CSS完成页面的表现与风格,JavaScript实现一些客户端的功能与业务.</p>
+    </details>
+</div>
+<!--
+<details>
+    <summary></summary>
+    <p></p>
+</details>
+-->
 </body>
 </html>
