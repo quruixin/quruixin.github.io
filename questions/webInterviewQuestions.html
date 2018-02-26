@@ -31,10 +31,11 @@
     <details>
         <summary>行内元素,块级元素,空元素</summary>
         <p>css规定,每个元素都有display属性,确定该元素的类型,每个元素都有默认的display值,block为块级元素,inline为行内元素</p>
-        <p>行内元素:a,b,img,em strong,span,sub sup,form,input,select,strong</p>
-        <p>块级元素:div,table,p,h1-h6,iframe,dl ul ol,li,dl,dt,dd,for</p>
+        <p>行内元素:a,abbr,acronym,b,bdo,big,br,cite,code,dfn,em,font,i,img,input,kbd,label,q,s,samp,select,small,span,strike,strong,sub,sup,textarea,tt,u,var</p>
+        <p>块级元素:address,blockquote,center,dir,div,dl,fieldset,form,h1-6,hr,isindex,menu,noframes,noscript,ol,p,pre,table,ul</p>
         <p>常见的空元素:br,hr,img,input,link,meta</p>
         <p>area,base,col,command,embed,keygen,param,source,track,wbr不同浏览器有差异</p>
+        <p>可变元素:根据上下文语境决定该元素为块元素或者内联元素:applet,button,del,iframe,ins,map,object,script</p>
     </details>
     <details>
         <summary>&lt;img&gt;的title和alt有什么区别</summary>
@@ -56,11 +57,14 @@
     </details>
     <details>
         <summary>语义化是什么,有什么好处</summary>
-        <p>web语义化是指通过html标记表示页面包含的信息,包含了html标签的语义化.html标签的语义化是指:通过使用包含语义的标签恰当地表示文档结构.css命名的语义化是指:为html标签添加有意义的class,id补充表达的语义,如microformat通过添加符合规则的class描述信息为什么需要语义化:</p>
-        <p>去掉样式后页面呈现清晰的结构</p>
-        <p>盲人使用读屏器更好地阅读</p>
-        <p>搜索引擎更好地理解页面,有利于收录</p>
-        <p>便团队项目的可持续动作及维护</p>
+        <p>1.web语义化是指通过html标记表示页面包含的信息,包含了html标签的语义化.html标签的语义化是指:通过使用包含语义的标签恰当地表示文档结构.css命名的语义化是指:为html标签添加有意义的class,id补充表达的语义,如microformat通过添加符合规则的class描述信息为什么需要语义化:</p>
+        <p>2.去掉样式后页面呈现清晰的结构</p>
+        <p>3.盲人使用读屏器更好地阅读</p>
+        <p>4.搜索引擎更好地理解页面,有利于收录</p>
+        <p>5.便团队项目的可持续动作及维护</p>
+        <p>1.什么是语义化?根据内容的结构化,选择合适的标签便于开发者阅读和写出更优雅的代码的同时让浏览器的爬虫和机器很好地解析</p>
+        <p>2.为什么要语义化?为了在没有CSS的情况下,页面也能呈现出很好的内容结构,代码结构.有利于SEO:和搜索引擎建立良好沟通,有助于爬虫抓取更多的有效信息:爬虫依赖于标签来确定上下文和各个关键字的权重.方便其他设备解析(如屏幕阅读器,盲人阅读器,移动设备)以意义的方式来渲染网页.便于团队开发和维护,语义化更具可读性,是下一步网页的重要动向,遵循W3C标准的团队都遵循这个标准,可以减少差异化.</p>
+        <p>3.语义化标签header,footer,nav,section,article用来在页面中表示一套结构完整且独立的内容部分,aslde主题的附属信息,如果article里面为一篇文章的话,那么文章的作者以及信息内容就是这篇文章的附属内容了,figure媒体元素,比如一些视频,图片等待,datalist</p>
     </details>
     <details>
         <summary>iframe有哪个优缺点?</summary>
@@ -69,14 +73,33 @@
         <p>iframe和主页面共享连接池,而浏览器对相同域的连接有限制,所以会影响页面的并行加载.</p>
         <p>使用iframe之前需要考虑到这些缺点,如果需要使用iframe,最好通过javascript动态给iframe添加src属性值,可以绕开缺点.</p>
     </details>
-    <!--<details>
-        <summary></summary>
-        <p></p>
+    <details>
+        <summary>常用的浏览器内核有哪些</summary>
+        <p>Trident[traidnt]内核:IE,MaxThon,TT,The World,360,搜狗浏览器</p>
+        <p>Gecko[gekou]内核:FF</p>
+        <p>Presto[prestou]:Opera</p>
+        <p>Webkit[]内核:Safai,Chrome</p>
     </details>
     <details>
-        <summary></summary>
-        <p></p>
-    </details>-->
+        <summary>介绍一下你对浏览器内核的理解</summary>
+        <p>主要分为2部分:渲染引擎和JS引擎</p>
+        <p>渲染引擎:负责取得网页的内容(HTML,XML,img...),整理讯息(CSS),以及计算网页的显示方式,然后会输出至显示器或打印机.浏览器的内核的不同对于网页的语法解释会有不同,所以渲染的效果也不相同.所有网页浏览器,电子邮件客户端以及其它需要编辑,显示网络内容的应用程序都需要内核.</p>
+        <p>JS引擎:解析和执行javascript来实现网页的动态效果</p>
+        <p>是开始渲染引擎并没区分的很明确,后来JS引擎越来越独立,内核就倾向于只指渲染引擎.</p>
+    </details>
+    <details>
+        <summary>h5属性的作用是什么</summary>
+        <p>data-为h5新增的为前端开发者提供自定义的属性,这些属性可以通过dataset属性获取,不支持该属性的浏览器可以通过getAttribute方法获取</p>
+        <p>需要注意的是:data-之后的以连字符分割的多个单词组成的属性,获取的时候使用驼峰风格.所有主流浏览器都支持data-*属性</p>
+    </details>
+    <details>
+        <summary>说说超链接target属性的取值作用?</summary>
+        <p>target这个属性指定所链接的页面在浏览器窗口中的打开方式</p>
+        <p>_blank在新浏览器窗口中打开链接文件</p>
+        <p>_parent将链接的文件载入含有该链接框架的父框架集或父窗口中,如果有该链接的框架不是嵌套的,则在浏览器全屏窗口中载入链接的文件,就像_self参数</p>
+        <p>_self在同一框架或窗口中打开所链接的文档.此参数为默认值,通常不用指定.</p>
+        <p>_top在当前的整个浏览器窗口中打开所链接的文档,因而会删除所有框架</p>
+    </details>
 </div>
 <h1>CSS</h1>
 <div id="css">
@@ -353,6 +376,13 @@
         <p>6.localStorage的修改会促发其他文档窗口的update事件</p>
         <p>7.cookie有secure属性要求https传输</p>
         <p>8.浏览器不能保存超过300个cookie,单个服务器不能超过20个,每个cookie不能超过4k,web storage大小支持能达到5M</p>
+        <p>sessionStorage和localStorage是HTML5 Web Storage API提供的,可以方便在web请求之间保存数据.有了本地数据,就可以避免数据在浏览器和服务器间不必要地来回传递.</p>
+        <p>sessionStorage,localStorage,cookie都是在浏览器端存储的数据,其中sessionStorage的概念很特别,引入了一个浏览器窗口的概念.sessionStorage是在同源的同窗口中,始终存在的数据.也就是说只要这个浏览器窗口没有关闭,即使刷新页面或进入同源另一页面,数据仍然存在.关闭窗口后,sessionStorage即被销毁.同时独立打开的不同窗口,即使是同一页面,sessionStorage对象也不同的</p>
+        <p>cookie会发送到服务器端.其余两个不会.</p>
+        <p>cookie限制:ie8 50个,ie7 50个,FF 50个;opera 30个,ff safari 允许cookie多达4097个字节,包括name,value和等号;Internet Explorer允许多达4095个字节,包括name,value和等号</p>
+        <p>cookie:1.每个域名存储量比较小(各个浏览器不同,大致4K)2.所有域名的存储量有限制(各个浏览器不同,大致4K)3.有个数限制(各个浏览器不同)4.会随请求发送到服务器</p>
+        <p>LocalStorage:1.永久存储2.单个域名存储量比较大（推荐 5MB ，各浏览器不同）3.总体数量无限制</p>
+        <p>SessionStorage:1.只在Session内有效2.存储量更大(推荐没有限制,但是实际上各浏览器也不同)</p>
     </details>
     <details>
         <summary>js设备检测（判断是移动端还是PC端）</summary>
