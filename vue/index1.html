@@ -212,7 +212,7 @@
 
 <!--v-html="rawHtml"-->
 <div id="app-9">
- <p>Using mustaches:{{rawHtml}}</p>
+  <p>Using mustaches:{{rawHtml}}</p>
   <p>Using v-html directive:<span v-html="rawHtml"></span></p>
 </div>
 <script>
@@ -243,7 +243,318 @@
   });
 </script>
 
+<!--
+v-bind  -----:
+v-on    -----@
+-->
 
+<!--计算属性 vs 侦听属性-->
+<div id="app-11"></div>
+<script>
+  var vm1 = new Vue({
+    el:'#app-11',
+    data:{firstName:'Foo',lastName:'Bar',fullName:'Foo Bar'},
+    watch:{
+      firstName:function(val){
+        this.fullName = val + '' +this.lastName
+      },
+      lastName:function(val){
+        this.fullName = this.firstName + val
+      }
+    }
+  });
+
+  var vm2 = new Vue({
+    el:'#app-11',
+    data:{firstName:'Foo',lastName:'Bar'},
+    computed:{
+      fullName:function(val){
+        return this.firstName + '' +this.lastName
+      }
+    }
+  });
+</script>
+
+<!--计算属性的setter-->
+<script>
+  var vm = new Vue({
+    computed:{
+      fullName:{
+        get:function(){
+          return this.firstName + " " + this.lastName
+        },
+        set:function(newValue){
+          var names = new Value.split(' ')
+          this.firstName = names[0]
+          this.lastName = names[names.length - 1]
+        }
+      }
+    }
+  })
+</script>
+
+<!--侦听器-->
+<div id="app-12">
+  <p>Ask a yes/no question:<input v-model="question"></p>
+  <p>{{answer}}</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+<script>
+  var app9 = new Vue({
+    el:'#app-12',
+    data:{
+      question:'',
+      answer:'I cannot give you an answer until you ask a question!'
+    },
+    watch:{
+      question:function(newQuestion,lodQuestion){
+        this.answer = 'Waiting for you to stop typing...'
+        this.getAnswer()
+      }
+    },
+    methods:{
+      getAnswer:_.debounce(function(){
+        if (this.question.indexOf('?') === -1){
+          this.answer = 'Question usually contain a question mark. ;-)'
+          return
+        }
+        this.answer = 'Thinking...'
+        var vm = this
+        axios.get('https://yesno.wtf/api')
+                .then(function(response){
+                  vm.answer = _.capitalize(response.data.answer)
+                })
+                .catch(function(error){
+                  vm.answer = 'Error!Could not reach the API.' + error
+                })
+      },500)
+    }
+  });
+</script>
+
+<!--Class 与 Style 绑定-->
+<!--绑定class-->
+<div id="app-13" class="static" v-bind:class="{active:isActive,'text-danger':hasError}">绑定class</div>
+<script>
+  var app13 = new Vue({
+    el:'#app-13',
+    data:{
+      isActive:true,
+      hasError:false
+    }
+  })
+</script>
+
+<!--绑定class data-->
+<div id="app-14" class="static" v-bind:class="classObject">绑定class data</div>
+<script>
+  var app14 = new Vue({
+    el:'#app-14',
+    data: {
+      classObject: {
+        active: true,
+        'text-danger': false
+      }
+    }
+  })
+</script>
+
+<!--绑定class Object-->
+<div id="app-15" class="static" v-bind:class="classObject">绑定class Object</div>
+<script>
+  var app15 = new Vue({
+    el:'#app-15',
+    data: {
+      isActive:true,
+      error:null
+    },
+    computed:{
+      classObject:function(){
+        return {
+          active:this.isActive && !this.error,
+          'text-danger':this.error && this.error.type === 'fatal'
+        }
+      }
+    }
+  })
+</script>
+
+<!--绑定class 数组-->
+<div id="app-16" class="static" v-bind:class="[activeClass,errorClass]">绑定class 数组</div>
+<div id="app-16-1" class="static" v-bind:class="[isActive?activeClass:'',errorClass]">绑定class 数组 三目运算符</div>
+<script>
+  var app16 = new Vue({
+    el:'#app-16',
+    data: {
+      activeClass:'active',
+      errorClass:'text-danger'
+    }
+  })
+  var app16 = new Vue({
+    el:'#app-16-1',
+    data: {
+      isActive:true,
+      activeClass:'active',
+      errorClass:'text-danger'
+    }
+  })
+</script>
+
+<!--绑定内联样式-->
+<div id="app-17" v-bind:style="{color:activeColor, fontSize:fontSize + 'px'}">绑定内联样式</div>
+<script>
+  var app17 = new Vue({
+    el:'#app-17',
+    data:{
+      activeColor: 'red',
+      fontSize: 30
+    }
+  })
+</script>
+
+<!--绑定内联样式 styleObject-->
+<div id="app-18" v-bind:style="styleObject">绑定内联样式 styleObject</div>
+<script>
+  var app18 = new Vue({
+    el:'#app-18',
+    data:{
+      styleObject:{
+        color: 'red',
+        fontSize: '30px'
+      }
+    }
+  })
+</script>
+
+<!--绑定内联样式 数组-->
+<div id="app-19" v-bind:style="[styleObject1,styleObject2]">绑定内联样式 数组</div>
+<script>
+  var app19 = new Vue({
+    el:'#app-19',
+    data:{
+      styleObject1:{
+        fontSize: '30px'
+      },
+      styleObject2:{
+        color: 'red',
+      }
+    }
+  })
+</script>
+
+<!--绑定内联样式 多重值-->
+<div id="app-20" v-bind:style="{display:['-webkit-box','-ms-flexbox','flex']}">绑定内联样式 多重值</div>
+
+<!--条件渲染 v-if v-else v-else-if-->
+<div id="app-21">
+  <h1 v-if="ok">yes</h1>
+  <h1 v-else>no</h1>
+
+  <div v-if="Math.random() > 0.5">Now you seem me</div>
+  <div v-else>Now you don't</div>
+
+  <div v-if="type==='A'">A</div>
+  <div v-else-if="type==='B'">B</div>
+  <div v-else-if="type==='C'">C</div>
+  <div v-else> Not A/B/C</div>
+
+</div>
+<script>
+  var app21 = new Vue({
+    el:'#app-21',
+    data:{
+      ok:true,
+      type:'',
+      loginType:'username'
+    }
+  })
+</script>
+
+<!--
+v-show
+如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。
+-->
+<div id="app-22">
+  <h1 v-show="ok">v-show</h1>
+</div>
+<script>
+  var app22 = new Vue({
+    el:'#app-22',
+    data:{
+      ok:true
+    }
+  })
+</script>
+
+<!--列表渲染-->
+<!--v-for   可以用of代替in-->
+<ul id="app-23">
+  <li v-for="item in items">{{item.message}}</li>
+</ul>
+<script>
+  var app23 = new Vue({
+    el:'#app-23',
+    data:{
+      items:[
+        {message:'Foo'},
+        {message:'Bar'}
+      ]
+    }
+  })
+</script>
+
+<ul id="app-24">
+  <li v-for="(item, index) in items">{{parentMessage}} - {{index}} - {{item.message}}</li>
+</ul>
+<script>
+  var app234= new Vue({
+    el:'#app-24',
+    data:{
+      parentMessage:'Parent',
+      items:[
+        {message:'Foo'},
+        {message:'Bar'}
+      ]
+    }
+  })
+</script>
+
+<ul id="app-25">
+  <li v-for="value in object">{{value}}</li>
+</ul>
+<script>
+  var app25 = new Vue({
+    el:'#app-25',
+    data:{
+      object:{
+        firstName:'John',
+        lastName:'Doe',
+        age:30
+      }
+    }
+  })
+</script>
+
+<ul id="app-26">
+  <li v-for="(value, key, index) in object">{{index}}.{{key}}:{{value}}</li>
+</ul>
+<script>
+  var app26 = new Vue({
+    el:'#app-26',
+    data:{
+      object:{
+        firstName:'John',
+        lastName:'Doe',
+        age:30
+      }
+    }
+  })
+</script>
+<!---->
+<!---->
+<!---->
+<!---->
 
 </body>
 </html>
