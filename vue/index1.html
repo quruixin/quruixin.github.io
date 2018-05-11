@@ -4,6 +4,78 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!--40-->
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+  <style>
+    /*37*/
+    .fade-enter-active,
+    .fade-leave-active{
+      transition:opacity .5s;
+    }
+    .fade-enter,
+    .fade-leave-to{
+      opacity:0;
+    }
+
+    /*38*/
+    .slide-fade-enter-active{
+      transition:all .3s ease;
+    }
+    .slide-fade-leave-active{
+      transition:all .8s cubic-bezier(1.0,0.5,0.8,1.0);
+    }
+    .slide-fade-enter,
+    .slide-fade-leave-to{
+      transform:translateX(10px);
+      opacity:0;
+    }
+    /*39*/
+    .bounce-enter-active{
+      animation:buounce-in .5s;
+    }
+    .bounce-leave-active{
+      animation:bounce-in .5s reverse;
+    }
+    @keyframes bounce-in{
+      0%{transform:scale(0);}
+      50%{transform:scale(1.5);}
+      100%{transform:scale(1);}
+    }
+
+    /*42*/
+    .list-item {
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .list-enter-active, .list-leave-active {
+      transition: all 1s;
+    }
+    .list-enter, .list-leave-to
+      /* .list-leave-active for below version 2.1.8 */ {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    /*43*/
+    .flip-list-move {
+      transition: transform 1s;
+    }
+
+    /*44*/
+    .list-complete-item {
+      transition: all 1s;
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .list-complete-enter, .list-complete-leave-to
+      /* .list-complete-leave-active for below version 2.1.8 */ {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .list-complete-leave-active {
+      position: absolute;
+    }
+  </style>
 </head>
 <body>
 
@@ -21,7 +93,6 @@
   })
   console.log(app.message);
 </script>
-
 
 <!--v-bind:title="message"-->
 <div id="app-2">
@@ -536,6 +607,7 @@ v-show
   })
 </script>
 
+<!--Vue.set()   app26.$set()-->
 <ul id="app-26">
   <li v-for="(value, key, index) in object">{{index}}.{{key}}:{{value}}</li>
 </ul>
@@ -549,6 +621,597 @@ v-show
         age:30
       }
     }
+  })
+  Vue.set(app26.object,'message','Bza');
+  app26.$set(app26.object,'job','enginner');
+
+  app26.object = Object.assign({},app26.object,{
+    interest:'yoga',
+    color:'blue'
+  })
+</script>
+
+<!--显示过滤/排序结果-->
+<ul id="app-27">
+  <li v-for="n in evenNumbers">{{n}}</li>
+</ul>
+<script>
+  var app27 = new Vue({
+    el:'#app-27',
+    data:{
+      numbers:[1,2,3,4,5,6,7,8,9]
+    },
+    computed:{
+      evenNumbers:function(){
+        return this.numbers.filter(function(number){
+          return number%2 === 0;
+        })
+      }
+    }
+  })
+</script>
+
+<ul id="app-28">
+  <li v-for="n in even(numbers)">{{n}}</li>
+</ul>
+<script>
+  var app28 = new Vue({
+    el:'#app-28',
+    data:{
+      numbers:[1,2,3,4,5,6,7,8,9]
+    },
+    methods:{
+      even:function(numbers){
+        return numbers.filter(function(number){
+          return number%2 === 0;
+        })
+      }
+    }
+  })
+</script>
+
+<!--事件处理-->
+<!--v-on-->
+<div id="app-29">
+  <button v-on:click="counter += 1">Add 1</button>
+  <p>The button above has been clicked {{counter}} times.</p>
+</div>
+<script>
+  var app29 = new Vue({
+    el:'#app-29',
+    data:{
+      counter:0
+    }
+  })
+</script>
+
+<div id="app-30">
+  <button v-on:click="greet">Greet</button>
+</div>
+<script>
+  var app30 = new Vue({
+    el:'#app-30',
+    data:{
+      name:'Vue.js'
+    },
+    methods:{
+      greet:function(event){
+        alert('Hello ' + this.name + "!");
+        if(event){
+          alert(event.target.tagName)
+        }
+      }
+    }
+  })
+</script>
+
+<div id="app-31">
+  <button v-on:click="say('hi')">Say hi</button>
+  <button v-on:click="say('what')">Say what</button>
+  <button v-on:click="warn('Form cannot be submitted yet.',$event)">Submit</button>
+</div>
+<script>
+  var app31 = new Vue({
+    el:'#app-31',
+    methods:{
+      say:function(message){
+        alert(message)
+      },
+      warn:function(message,event){
+        if(event) event.preventDefault()
+        alert(message);
+      }
+    }
+  })
+</script>
+
+<!--
+<a v-on:click.stop='doThis'>阻止单击事件继续传播</a>
+<a v-on:submit.prevent='onSubmit'>提交事件不再重载页面</a>
+<a v-on:click.stop.prevent='doThat'>修饰符可以串联</a>
+<a v-on:submit.prevent='doThat'>只有修饰符</a>
+<a v-on:click.capture='doThis'>添加事件监听器时使用事件捕获模式,即元素自身触发的事件先在此处处理,然后才交由内部元素进行处理</a>
+<a v-on:click.self='doThat'>只当在event.target是当前元素自身时触发处理函数,即事件不是从内部元素触发的</a>
+使用修饰符时,顺序很重要;相应的代码会以同样的顺序产生.
+因此,用v-on:click.prevent.self会阻止所有的点击,
+而v-on:click.self.prevent只会阻止对元素自身的点击
+-->
+
+<!--
+<input v-on:keyup.13='submit'>
+<input v-on:keyup.enter='submit'>
+<input @:keyup.enter='submit'>
+.enter
+.tab
+.delete
+.esc
+.space
+.up
+.down
+.left
+.right
+.ctrl
+.alt
+.shift
+.meta
+alt+C <input @keyup.alt.67 = 'clear'>
+Ctrl+Click <div @click.ctrl='dosomething'>Do something</div>
+<button @click.ctrl='onClick'>A</button>即使Alt 或 Shift被一同按下时也会触发
+<button @click.ctrl.exact='onCtrlClick'>A</button>有且只有Ctrl被按下的时候才触发
+<button @click.exact='onClick'>A</button>没有任何系统修饰符被按下的时候才触发
+-->
+
+<!--表单输入绑定-->
+<div id="app-32">
+  <input v-model="message" placeholder="edit me">
+  <p>Message is: {{message}}</p>
+
+  <span>Multiline message is:</span>
+  <p style="white-space:pre-line">{{ message1 }}</p><br>
+  <textarea v-model="message1" placeholder="add multiple lines"></textarea><br><br>
+
+  <input type="checkbox" id="checkbox" v-model="checked">
+  <label for="checkbox">{{ checked }}</label><br><br>
+
+  <input type="checkbox" id="jack" value="Jack" v-model="checkedNames"><label for="jack">Jack</label>
+  <input type="checkbox" id="john" value="John" v-model="checkedNames"><label for="john">John</label>
+  <input type="checkbox" id="mike" value="Mike" v-model="checkedNames"><label for="mike">Mike</label>
+  <span>Check names:{{checkedNames}}</span><br><br>
+
+  <input type="radio" id="one" value="One" v-model="picked"><label for="one">One</label>
+  <input type="radio" id="two" value="Two" v-model="picked"><label for="two">Two</label>
+  <span>Picked:{{picked}}</span><br><br>
+
+  <select v-model="selected">
+    <option disabled value="">请选择</option>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <span>Selected:{{selected}}</span><br><br>
+
+  <select v-model="selected1" multiple style="width:50px;">
+    <option disabled value="">请选择</option>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <span>Selected:{{selected1}}</span><br><br>
+
+  <input type="checkbox" v-model="toggle" v-on:click="yesOrNo" true-value="yes" false-value="no" id="yesno"><label for="yesno">yes no</label><br><br>
+
+  <input v-model.lazy="msg"><span>change msg: {{msg}}</span><br><br>
+
+  <input v-model.number="age" type="number"><span>自动将用户的输入值转为数值类型: {{age}}</span><br><br>
+
+  <input v-model.trim="trimMsg"><span>过滤用户输入的首尾空白字符: {{trimMsg}}</span><br><br>
+</div>
+<script>
+  var app32 = new Vue({
+    el:'#app-32',
+    data:{
+      message:'',
+      message1:'',
+      checked:false,
+      checkedNames:[],
+      picked:'',
+      selected:'',
+      selected1:[],
+      toggle:'no',
+      pick:'noradio',
+      msg:'',
+      age:0,
+      trimMsg:''
+    },
+    methods:{
+      yesOrNo:function(){
+        console.log(this.toggle)
+      }
+    }
+  })
+</script>
+
+<div id="app-33">
+  <select v-model="selected">
+    <option v-for="option in options" v-bind:value="option.value">{{option.text}}</option>
+  </select>
+</div>
+<script>
+  var app33 = new Vue({
+    el:'#app-33',
+    data:{
+      selected:'A',
+      options:[
+        {text:'One',value:'A'},
+        {text:'Two',value:'B'},
+        {text:'Three',value:'C'},
+      ]
+    }
+  })
+</script>
+
+<!--组件基础-->
+<div id="app-34">
+  <button-counter></button-counter>
+  <button-counter></button-counter>
+</div>
+<script>
+
+  Vue.component('button-counter',{
+    data:function(){
+      return {counter:0}
+    },
+    template:'<button v-on:click="counter++">You clicked me {{ counter }} times.</button>'
+  })
+
+  new Vue({
+    el:'#app-34',
+  })
+
+</script>
+
+<div id="app-35">
+  <blog-post title="My journey with Vue"></blog-post>
+  <blog-post title="Blogging with Vue"></blog-post>
+  <blog-post title="Why Vue is so fun"></blog-post>
+</div>
+<script>
+  Vue.component('blog-post',{
+    props:['title'],
+    template:'<h3>{{ title }}</h3>'
+  })
+  new Vue({
+    el:'#app-35',
+  })
+</script>
+
+<div id="app-36">
+  <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:title="post.title"></blog-post>
+</div>
+<script>
+  new Vue({
+    el:'#app-36',
+    data:{
+      posts:[
+        {id:1,title:'My journey with Vue'},
+        {id:2,title:'Blogging with Vue'},
+        {id:3,title:'Why Vue is so fun'}
+      ]
+    }
+  })
+</script>
+<!--过渡 & 动画-->
+<!--
+v-enter:定义进入过渡的开始状态.
+v-enter-active:定义进入过渡生效时的状态
+v-enter-to:定义进入过渡的结束状态
+v-leave:定义离开过渡的开始状态
+v-leave-active:定义离开过渡生效时的状态
+v-leave-to:定义离开过渡的结束状态
+-->
+
+<div id="app-37">
+  <button v-on:click="show = !show">Toggle</button>
+  <transition name="fade"><p v-if="show">hello</p></transition>
+</div>
+<script>
+  new Vue({
+    el:'#app-37',
+    data:{
+      show:true
+    }
+  })
+</script>
+
+<div id="app-38">
+  <button v-on:click="show = !show">slide-fade</button>
+  <transition name="slide-fade"><p v-if="show">hello</p></transition>
+</div>
+<script>
+  new Vue({
+    el:'#app-38',
+    data:{
+      show:true
+    }
+  })
+</script>
+
+<div id="app-39">
+  <button v-on:click="show = !show">bounce</button>
+  <transition name="bounce">
+    <p v-if="show">Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
+  </transition>
+</div>
+<script>
+  new Vue({
+    el:'#app-39',
+    data:{
+      show:true
+    }
+  })
+</script>
+
+<div id="app-40">
+  <button v-on:click="show = !show">custom-classes-transition</button>
+  <transition name="custom-classes-transition" enter-active-class="animated tada" leave-active-class="animated bounceOutRight">
+    <p v-if="show">hello</p>
+  </transition>
+</div>
+<script>
+  new Vue({
+    el:'#app-40',
+    data:{
+      show:true
+    }
+  })
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+<div id="app-41">
+  <button @click="show = !show">velocity.min.js</button>
+  <transition
+          v-on:before-enter="beforeEnter"
+          v-on:enter="enter"
+          v-on:leave="leave"
+          v-bind:css="false"
+  >
+    <p v-if="show">Demo velocity.min.js</p>
+  </transition>
+</div>
+<script>
+  new Vue({
+    el: '#app-41',
+    data: {
+      show: true
+    },
+    methods: {
+      beforeEnter: function (el) {
+        el.style.opacity = 0
+        el.style.transformOrigin = 'left'
+      },
+      enter: function (el, done) {
+        Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 })
+        Velocity(el, { fontSize: '1em' }, { complete: done })
+      },
+      leave: function (el, done) {
+        Velocity(el, { translateX: '15px', rotateZ: '50deg' }, { duration: 600 })
+        Velocity(el, { rotateZ: '100deg' }, { loop: 2 })
+        Velocity(el, {
+          rotateZ: '45deg',
+          translateY: '30px',
+          translateX: '30px',
+          opacity: 0
+        }, { complete: done })
+      }
+    }
+  })
+</script>
+
+<div id="app-42" class="demo">
+  <button v-on:click="add">Add</button>
+  <button v-on:click="remove">Remove</button>
+  <transition-group name="list" tag="p">
+    <span v-for="item in items" v-bind:key="item" class="list-item">
+      {{ item }}
+    </span>
+  </transition-group>
+</div>
+<script>
+  new Vue({
+    el: '#app-42',
+    data: {
+      items: [1,2,3,4,5,6,7,8,9],
+      nextNum: 10
+    },
+    methods: {
+      randomIndex: function () {
+        return Math.floor(Math.random() * this.items.length)
+      },
+      add: function () {
+        this.items.splice(this.randomIndex(), 0, this.nextNum++)
+      },
+      remove: function () {
+        this.items.splice(this.randomIndex(), 1)
+      },
+    }
+  })
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+<div id="app-43" class="demo">
+  <button v-on:click="shuffle">Shuffle</button>
+  <transition-group name="flip-list" tag="ul">
+    <li v-for="item in items" v-bind:key="item">
+      {{ item }}
+    </li>
+  </transition-group>
+</div>
+<script>
+  new Vue({
+    el: '#app-43',
+    data: {
+      items: [1,2,3,4,5,6,7,8,9]
+    },
+    methods: {
+      shuffle: function () {
+        this.items = _.shuffle(this.items)
+      }
+    }
+  })
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+
+<div id="app-44" class="demo">
+  <button v-on:click="shuffle">Shuffle</button>
+  <button v-on:click="add">Add</button>
+  <button v-on:click="remove">Remove</button>
+  <transition-group name="list-complete" tag="p">
+    <span
+            v-for="item in items"
+            v-bind:key="item"
+            class="list-complete-item"
+    >
+      {{ item }}
+    </span>
+  </transition-group>
+</div>
+<script>
+  new Vue({
+    el: '#app-44',
+    data: {
+      items: [1,2,3,4,5,6,7,8,9],
+      nextNum: 10
+    },
+    methods: {
+      randomIndex: function () {
+        return Math.floor(Math.random() * this.items.length)
+      },
+      add: function () {
+        this.items.splice(this.randomIndex(), 0, this.nextNum++)
+      },
+      remove: function () {
+        this.items.splice(this.randomIndex(), 1)
+      },
+      shuffle: function () {
+        this.items = _.shuffle(this.items)
+      }
+    }
+  })
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+
+<div id="app-45">
+  <input v-model="query">
+  <transition-group
+          name="staggered-fade"
+          tag="ul"
+          v-bind:css="false"
+          v-on:before-enter="beforeEnter"
+          v-on:enter="enter"
+          v-on:leave="leave"
+  >
+    <li
+            v-for="(item, index) in computedList"
+            v-bind:key="item.msg"
+            v-bind:data-index="index"
+    >{{ item.msg }}</li>
+  </transition-group>
+</div>
+<script>
+  new Vue({
+    el: '#app-45',
+    data: {
+      query: '',
+      list: [
+        { msg: 'Bruce Lee' },
+        { msg: 'Jackie Chan' },
+        { msg: 'Chuck Norris' },
+        { msg: 'Jet Li' },
+        { msg: 'Kung Fury' }
+      ]
+    },
+    computed: {
+      computedList: function () {
+        var vm = this
+        return this.list.filter(function (item) {
+          return item.msg.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1
+        })
+      }
+    },
+    methods: {
+      beforeEnter: function (el) {
+        el.style.opacity = 0
+        el.style.height = 0
+      },
+      enter: function (el, done) {
+        var delay = el.dataset.index * 150
+        setTimeout(function () {
+          Velocity(
+                  el,
+                  { opacity: 1, height: '1.6em' },
+                  { complete: done }
+          )
+        }, delay)
+      },
+      leave: function (el, done) {
+        var delay = el.dataset.index * 150
+        setTimeout(function () {
+          Velocity(
+                  el,
+                  { opacity: 0, height: 0 },
+                  { complete: done }
+          )
+        }, delay)
+      }
+    }
+  })
+</script>
+
+<!--混入-->
+<!--选项合并-->
+<script>
+  var mixin = {
+    methods:{
+      foo:function(){
+        console.log('foo')
+      },
+      confilicting:function(){
+        console.log('from mixin')
+      }
+    }
+  }
+
+  var vm = new Vue({
+    mixins:[mixin],
+    methods:{
+      bar:function(){
+        console.log('bar')
+      },
+      confilicting:function(){
+        console.log('from self')
+      }
+    }
+  })
+
+  vm.foo();
+  vm.bar();
+  vm.confilicting();
+</script>
+
+<!--全局混入-->
+<script>
+  Vue.mixin({
+    created:function(){
+      var myOption = this.$options.myOption
+      if(myOption){
+        console.log(myOption);
+      }
+    }
+  })
+  new Vue({
+    myOption:'hello!'
   })
 </script>
 <!---->
