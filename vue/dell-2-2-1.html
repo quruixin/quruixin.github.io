@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">{{message}}</div>
+<script>
+  /*原生代码*/
+  /*var dom = document.getElementById('app');
+  dom.innerHTML='hello world!';
+
+  setTimeout(function(){
+    dom.innerHTML='bye world!';
+  },1000);*/
+
+
+  var app = new Vue({
+    el:'#app',
+    data:{
+      message:'hello world1!'
+    }
+  })
+
+  setTimeout(function(){
+    app.$data.message='bye world!';
+  },1000)
+</script>
+</body>
+</html>
