@@ -13,7 +13,7 @@
 	var nickname = "";
 	    $.ajax({
 				data : {account:'15501054989',password:'123456'},
-				url : 'http://test01.ers.huohetech.com/ers/common/user/login.do',
+				url : '',
 				type : 'post',
 				datatype : 'json',
 				success : function(result) {
@@ -254,7 +254,7 @@
 							$.ajax({
 										// url:
 										// 'http://www.dailuu.com/s-s/static/upload/value',
-										url : 'http://test01.ers.huohetech.com/ers/common/dic/org.do',
+										url : '',
 										type : 'GET',
 										success : function(data) {
 											// alert('修改标题');
