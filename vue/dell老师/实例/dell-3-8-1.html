@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue列表渲染</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <div v-for="(item,index) of list" :key="item.id">{{index}}------{{item.text}}</div>
+  <span v-for="(item,index) of list" :key="item.id">{{item.text}}</span>
+
+  <div v-for="(item,index) of list" :key="item.id">
+    <div>{{index}}------{{item.text}}</div>
+    <span>{{item.text}}</span>
+  </div>
+
+  <template v-for="(item,index) of list" :key="item.id">
+    <div>{{index}}------{{item.text}}</div>
+    <span>{{item.text}}</span>
+  </template>
+</div>
+<script>
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      list:[{
+        id:'0000001',
+        text:'hello'
+      },{
+        id:'0000002',
+        text:'world'
+      },{
+        id:'0000003',
+        text:'hello world'
+      }]
+    }
+  })
+</script>
+</body>
+</html>

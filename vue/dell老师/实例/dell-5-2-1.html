@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>在Vue中使用Animate.css库</title>
+  <script src="vue.js"></script>
+  <style>
+    @keyframes bounce-in {
+      0%{
+        transform:scale(0);
+      }
+      50%{
+        transform:scale(1.5);
+      }
+      0%{
+        transform:scale(1);
+      }
+    }
+    .active{
+      transform-origin:left center;
+      animation: bounce-in 1s;
+    }
+    .leave{
+      transform-origin:left center;
+      animation: bounce-in 1s reverse;
+    }
+  </style>
+</head>
+<body>
+<div id="root">
+  <transition
+          name="fade"
+          enter-active-class="active"
+          leave-active-class="leave"
+  >
+    <div v-if="show">hello world</div>
+  </transition>
+  <button @click="handleClick">change</button>
+</div>
+<script>
+  var vm = new Vue({
+    el:'#root',
+    data:{
+      show:true,
+    },
+    methods:{
+      handleClick:function(){
+        this.show=!this.show;
+      }
+    }
+  })
+</script>
+</body>
+</html>

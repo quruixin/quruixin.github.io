@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>计算属性，方法和侦听器</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <div>{{firstName + " " + lastName}}</div>
+  <div>computed:{{fullName}}{{age}}</div>
+  <div>methods:{{fullName1()}}</div>
+  <div>watch:{{fullName2}}</div>
+</div>
+<script>
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      firstName:'Dell',
+      lastName:'Lee',
+      fullName2:'Dell Lee',
+      age:28
+    },
+    watch:{//和computed一样有缓存机制,但是比computed复杂的多
+      firstName:function(){//监听firstName
+        console.log('wacth 计算了一次');
+        this.fullName2 = this.firstName + this.lastName;
+      },
+      lastName:function(){//监听lastName
+        console.log('wacth 计算了一次');
+        this.fullName2 = this.firstName + this.lastName;
+      }
+    },
+    methods:{//不像coumputed有缓存机制,页面只要重新渲染,就会重新计算,所以coumputed更好
+      fullName1:function(){
+        console.log('methods 计算了一次')
+        return this.firstName + ' ' + this.lastName;
+      }
+    },
+    computed:{//计算属性,有一个缓存,依赖值没有改变,不会重新计算,依赖属性改变了,会重新计算
+      fullName:function(){
+        console.log('computed 计算了一次');
+        return this.firstName + ' ' + this.lastName;
+      }
+    }
+  })
+</script>
+</body>
+</html>

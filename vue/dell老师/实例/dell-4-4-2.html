@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>给组件绑定原生事件</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+<div id="root">
+  <child v-on:click.native="handleClick"></child>
+</div>
+<script>
+
+  Vue.component('child',{
+    template:'<div>child</div>',//原生事件
+  })
+
+  var vm = new Vue({
+    el:'#root',
+    methods:{
+      handleClick:function(){
+        alert('aabb')
+      }
+    }
+  })
+
+</script>
+</body>
+</html>
